@@ -7,11 +7,11 @@ go
 use FireFighterDB -- PAAD project
 go
 
---- version 1 (doesn't need to be this complex, best to use version 2 below)
+--- version 1 (don't use) (doesn't need to be this complex, best to use version 2 below)
 CREATE TABLE dbo.FireDepartment
 (
     [ID_FD] int identity primary key,
-    [Name] int not null,
+    [Name] nvarchar(50) not null,
 	[Location] nvarchar(50), --simple
 	[Cmdr_ID] int,
 	[Active] bit,
@@ -21,7 +21,7 @@ go
 CREATE TABLE dbo.FireFighter
 (
     [ID_FF] int identity primary key,
-    [Name] int not null,
+    [Name] nvarchar(50) not null,
 	[Surname] int not null,
 	[ActiveDate] datetime null,
 	[Rank_ID] int not null,
@@ -33,7 +33,7 @@ go
 CREATE TABLE dbo.[Rank]
 (
     [ID_Rank] int identity primary key,
-    [Name] int not null,
+    [Name] nvarchar(50) not null,
 );
 go
 
@@ -70,18 +70,18 @@ go
 CREATE TABLE dbo.FireDepartment
 (
     [ID_FD] int identity primary key,
-    [Name] int not null,
-	[Location] nvarchar(50), --simple
-	[Cmdr_ID] int,
-	[Active] bit,
+    [Name] nvarchar(50) not null,
+	[Location] nvarchar(50) not null, --simple
+	[Cmdr_ID] int null,
+	[Active] bit not null,
 );
 go
 
 CREATE TABLE dbo.FireFighter
 (
     [ID_FF] int identity primary key,
-    [Name] int not null,
-	[Surname] int not null,
+    [Name] nvarchar(50) not null,
+	[Surname] nvarchar(50) not null,
 	[ActiveDate] datetime null,
 	[Rank_ID] int not null,
 	[FD_ID] int not null
@@ -113,10 +113,10 @@ go
 CREATE TABLE dbo.Intervention
 (
     [ID_Int] int identity primary key,
-    [Location] nvarchar(50) not null,
+    [Location] nvarchar(150) not null,
 	[Cmdr_ID] int not null,
 	[Type_ID] int not null,
-	[Active] bit,
+	[Active] bit not null,
 );
 go
 
@@ -146,7 +146,7 @@ go
 CREATE TABLE dbo.[InterventionType]
 (
     [ID_Type] int identity primary key,
-    [Name] int not null,
+    [Name] nvarchar(50) not null,
 );
 go
 
@@ -156,7 +156,7 @@ FOREIGN KEY ([Type_ID]) REFERENCES InterventionType(ID_Type);
 go
 ---
 
---version 2 removal (uncomment to use)
+--version 2 removal (select all below, CTRL+K,CTRL+U to uncomment then execute)
 
 --Alter table dbo.FireFighter
 --drop CONSTRAINT FK_Rank
