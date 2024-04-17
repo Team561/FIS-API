@@ -91,7 +91,7 @@ go
 CREATE TABLE dbo.[Rank]
 (
     [ID_Rank] int identity primary key,
-    [Name] int not null,
+    [Name] nvarchar(50) not null,
 );
 go
 
