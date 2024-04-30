@@ -14,14 +14,19 @@ go
 Alter table dbo.FireDepartment
 drop CONSTRAINT FK_FireFighterCommander
 
-Insert into [FireDepartment] (Name, Location, Cmdr_ID, Active)
+Insert into [FireDepartment] (Name, Location, Active)
 values 
-('Zagreb FD1', 'Zagreb',1,1)
+('Zagreb FD1', 'Zagreb',1)
 go
 
 Insert into FireFighter (Name, Surname, ActiveDate, Rank_ID, FD_ID)
 values
-('Walter','White',CURRENT_TIMESTAMP,1,1)
+('Walter','White',CURRENT_TIMESTAMP,1,(select FireDepartment.ID_FD from FireDepartment where FireDepartment.Name = 'Zagreb FD1'))
+go
+
+update FireDepartment
+set Cmdr_ID = (select FireFighter.ID_FF from FireFighter where FireFighter.Name = 'Walter' and FireFighter.Surname = 'White')
+where FireDepartment.ID_FD = (select FireDepartment.ID_FD from FireDepartment where FireDepartment.Name = 'Zagreb FD1')
 go
 
 Alter table dbo.FireDepartment
@@ -41,12 +46,12 @@ go
 
 Insert into FireFighter (Name, Surname, ActiveDate, Rank_ID, FD_ID)
 values
-('Saul','Goodman',CURRENT_TIMESTAMP,1,2)
+('Saul','Goodman',CURRENT_TIMESTAMP,1,(select FireDepartment.ID_FD from FireDepartment where FireDepartment.Name = 'Zadar FD5'))
 go
 
 update FireDepartment
-set Cmdr_ID = 2
-where FireDepartment.ID_FD = 2
+set Cmdr_ID = (select FireFighter.ID_FF from FireFighter where FireFighter.Name = 'Saul' and FireFighter.Surname = 'Goodman')
+where FireDepartment.ID_FD = (select FireDepartment.ID_FD from FireDepartment where FireDepartment.Name = 'Zadar FD5')
 go
 
 select * from FireDepartment
@@ -62,14 +67,14 @@ go
 select * from InterventionType
 insert into Intervention(Location, Cmdr_ID, Type_ID, Active)
 values
-('Zagreb',1,2,1)
+('Zagreb',(select FireFighter.ID_FF from FireFighter where FireFighter.Name = 'Walter' and FireFighter.Surname = 'White'),2,1)
 go
 
 Insert into FireFighter (Name, Surname, ActiveDate, Rank_ID, FD_ID)
 values
-('Jesse','Pinkman',CURRENT_TIMESTAMP,4,1),
-('Hank','Schrader',CURRENT_TIMESTAMP,2,1),
-('Skyler','White',CURRENT_TIMESTAMP,4,1)
+('Jesse','Pinkman',CURRENT_TIMESTAMP,4,(select FireDepartment.ID_FD from FireDepartment where FireDepartment.Name = 'Zagreb FD1')),
+('Hank','Schrader',CURRENT_TIMESTAMP,2,(select FireDepartment.ID_FD from FireDepartment where FireDepartment.Name = 'Zagreb FD1')),
+('Skyler','White',CURRENT_TIMESTAMP,4,(select FireDepartment.ID_FD from FireDepartment where FireDepartment.Name = 'Zagreb FD1'))
 go
 
 select * from Intervention
@@ -78,18 +83,8 @@ select * from FireDepartment
 select * from Rank
 insert into [FireFighter-Intervention](Int_ID, FF_ID)
 values
-(1,1),
-(1,3),
-(1,4),
-(1,5)
-go
-
---Example query
-select Intervention.Location, InterventionType.Name as 'Intervention type',FireFighter.Name,FireFighter.Surname, Rank.Name as 'Rank', FireDepartment.Name as 'Fire Department', (select concat(FireFighter.Name,' ',FireFighter.Surname) from FireFighter where FireFighter.ID_FF = Intervention.Cmdr_ID) as 'Commander in charge of intervention'
-from [FireFighter-Intervention] as fi
-inner join Intervention on fi.Int_ID = Intervention.ID_Int
-inner join InterventionType on Intervention.Type_ID = InterventionType.ID_Type
-inner join FireFighter on fi.FF_ID = FireFighter.ID_FF
-inner join Rank on FireFighter.Rank_ID = Rank.ID_Rank
-inner join FireDepartment on FireFighter.FD_ID = FireDepartment.ID_FD
+(1,(select FireFighter.ID_FF from FireFighter where FireFighter.Name = 'Walter' and FireFighter.Surname = 'White')),
+(1,(select FireFighter.ID_FF from FireFighter where FireFighter.Name = 'Jesse' and FireFighter.Surname = 'Pinkman')),
+(1,(select FireFighter.ID_FF from FireFighter where FireFighter.Name = 'Hank' and FireFighter.Surname = 'Schrader')),
+(1,(select FireFighter.ID_FF from FireFighter where FireFighter.Name = 'Skyler' and FireFighter.Surname = 'White'))
 go
