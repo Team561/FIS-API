@@ -1,13 +1,13 @@
 use master
 go
 
-create database FireFighterDB
+create database FirefighterDB
 go
 
-use FireFighterDB -- PAAD project
+use FirefighterDB -- PAAD project
 go
 
----version 2 (simpler) <--- this one
+---version 2 <--- this one
 
 CREATE TABLE dbo.FireDepartment
 (
@@ -19,14 +19,15 @@ CREATE TABLE dbo.FireDepartment
 );
 go
 
-CREATE TABLE dbo.FireFighter
+CREATE TABLE dbo.Firefighter
 (
     [ID_FF] uniqueidentifier primary key default NEWSEQUENTIALID(),
     [Name] nvarchar(50) not null,
 	[Surname] nvarchar(50) not null,
 	[ActiveDate] datetime null,
 	[Rank_ID] int not null,
-	[FD_ID] uniqueidentifier not null
+	[FD_ID] uniqueidentifier not null,
+	[Active] bit not null
 );
 go
 
@@ -37,25 +38,25 @@ CREATE TABLE dbo.[Rank]
 );
 go
 
-Alter table dbo.FireFighter
+Alter table dbo.Firefighter
 ADD CONSTRAINT FK_Rank
 FOREIGN KEY (Rank_ID) REFERENCES [Rank](ID_Rank);
 go
 
-Alter table dbo.FireFighter
+Alter table dbo.Firefighter
 ADD CONSTRAINT FK_FireDepartment
 FOREIGN KEY (FD_ID) REFERENCES FireDepartment(ID_FD);
 go
 
 Alter table dbo.FireDepartment
-ADD CONSTRAINT FK_FireFighterCommander
-FOREIGN KEY (Cmdr_ID) REFERENCES FireFighter(ID_FF);
+ADD CONSTRAINT FK_FirefighterCommander
+FOREIGN KEY (Cmdr_ID) REFERENCES Firefighter(ID_FF);
 go
 
 CREATE TABLE dbo.Intervention
 (
     [ID_Int] int identity primary key,
-    [Location] nvarchar(150) not null,
+    [Location] nvarchar(300) not null,
 	[Cmdr_ID] uniqueidentifier not null,
 	[Type_ID] int not null,
 	[Active] bit not null,
@@ -64,10 +65,10 @@ go
 
 Alter table dbo.Intervention
 ADD CONSTRAINT FK_InterventionCommander
-FOREIGN KEY (Cmdr_ID) REFERENCES FireFighter(ID_FF);
+FOREIGN KEY (Cmdr_ID) REFERENCES Firefighter(ID_FF);
 go
 
-CREATE TABLE dbo.[FireFighter-Intervention]
+CREATE TABLE dbo.[Firefighter-Intervention]
 (
     [ID] int identity primary key,
     [Int_ID] int not null,
@@ -75,14 +76,14 @@ CREATE TABLE dbo.[FireFighter-Intervention]
 );
 go
 
-Alter table dbo.[FireFighter-Intervention]
+Alter table dbo.[Firefighter-Intervention]
 ADD CONSTRAINT FK_FI_Intervention
 FOREIGN KEY (Int_ID) REFERENCES Intervention(ID_Int);
 go
 
-Alter table dbo.[FireFighter-Intervention]
-ADD CONSTRAINT FK_FI_FireFighter
-FOREIGN KEY (FF_ID) REFERENCES FireFighter(ID_FF);
+Alter table dbo.[Firefighter-Intervention]
+ADD CONSTRAINT FK_FI_Firefighter
+FOREIGN KEY (FF_ID) REFERENCES Firefighter(ID_FF);
 go
 
 CREATE TABLE dbo.[InterventionType]
@@ -97,10 +98,15 @@ ADD CONSTRAINT FK_InterventionType
 FOREIGN KEY ([Type_ID]) REFERENCES InterventionType(ID_Type);
 go
 
-CREATE TABLE dbo.Login
+CREATE TABLE dbo.[Login]
 (
-	[Username] nvarchar(50),
+	[Username] nvarchar(50) primary key,
     [Password] BINARY(64),
     [UserGUID] uniqueidentifier,
 );
+go
+
+Alter table dbo.[Login]
+ADD CONSTRAINT FK_FirefighterID
+FOREIGN KEY ([UserGUID]) REFERENCES Firefighter(ID_FF);
 go
