@@ -1,5 +1,6 @@
 ﻿using FIS_API.Dtos;
 using FIS_API.Models;
+using FIS_API.Security;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -24,65 +25,115 @@ namespace FIS_API.Controllers
 
 		[HttpPost("[action]")]
 		[Authorize]
-		public ActionResult<IEnumerable<Intervention>> FetchMyInterventions(bool includeInactive)
+		public ActionResult<IEnumerable<InterventionDto>> FetchUserInterventions(bool includeInactive = false, bool includeCommanders = false)
 		{
-			string username = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-
-			if(username == null)
+			try
 			{
-				return BadRequest("Token has no username. Wait, what?");
+				string username = JWTUsernameReader.Read(User);
+
+				var userData = _context.Logins.Include(x => x.User).ThenInclude(x => x.Rank)
+					.Include(x => x.User.Interventions).ThenInclude(x => x.Type).FirstOrDefault(x => x.Username == username);
+
+				List<InterventionDto> result = new List<InterventionDto>();
+
+				if (includeInactive)
+					foreach (Intervention Int in userData.User.Interventions)
+						result.Add(InterventionDto.GetDtoFromIntervention(Int, includeCommanders));
+				else
+					foreach (Intervention Int in userData.User.Interventions)
+						if (Int.Active)
+							result.Add(InterventionDto.GetDtoFromIntervention(Int, includeCommanders));
+
+				return Ok(result);
 			}
-
-			var userData = _context.Logins.Include(x => x.User).Include(x => x.User.Interventions).FirstOrDefault(x => x.Username == username);
-
-			List<Intervention> result = new List<Intervention>();
-
-			if (includeInactive)
+			catch (BadHttpRequestException ex)
 			{
-				foreach (Intervention Int in userData.User.Interventions)
-				{
-					result.Add(Int);
-				}
+				return BadRequest(ex.Message);
 			}
-			else
+			catch (Exception ex)
 			{
-				foreach (Intervention Int in userData.User.Interventions)
-				{
-					if (Int.Active)
-					{
-						result.Add(Int);
-					}
-				}
+				return StatusCode(500, ex.Message);
 			}
+		}
 
-			return result;
+		[HttpPost("[action]")]
+		[Authorize]
+		public ActionResult<InterventionDto> FetchUserInterventionCmdr()
+		{
+			try
+			{
+				string username = JWTUsernameReader.Read(User);
+
+				var userData = _context.Logins.Include(x => x.User).ThenInclude(x => x.Rank)
+					.Include(x => x.User.Interventions).ThenInclude(x => x.Type).FirstOrDefault(x => x.Username == username);
+
+
+				return BadRequest("Not yet implemented...");
+			}
+			catch (BadHttpRequestException ex)
+			{
+				return BadRequest(ex.Message);
+			}
+			catch (Exception ex)
+			{
+				return StatusCode(500, ex.Message);
+			}
 		}
 
 		[HttpPost("[action]")]
 		[Authorize(Roles = "Fire Fighter Commander")]
-		public ActionResult CreateIntervention()
+		public ActionResult CreateIntervention(InterventionDto interventionData)
 		{
+			try
+			{
+				string username = JWTUsernameReader.Read(User);
 
-
-			return BadRequest("Not yet implemented...");
+				return BadRequest("Not yet implemented...");
+			}
+			catch (BadHttpRequestException ex)
+			{
+				return BadRequest(ex.Message);
+			}
+			catch (Exception ex)
+			{
+				return StatusCode(500, ex.Message);
+			}
 		}
 
 		[HttpPost("[action]")]
 		[Authorize(Roles = "Fire Fighter Commander")]
 		public ActionResult AddFirefighterToIntervention(int interventionID, string firefighterUID)
 		{
-
-
-			return BadRequest("Not yet implemented...");
+			try
+			{
+				return BadRequest("Not yet implemented...");
+			}
+			catch (BadHttpRequestException ex)
+			{
+				return BadRequest(ex.Message);
+			}
+			catch (Exception ex)
+			{
+				return StatusCode(500, ex.Message);
+			}
 		}
 
 		[HttpPost("[action]")]
 		[Authorize(Roles = "Fire Fighter Commander")]
 		public ActionResult EndIntervention(int interventionID)
 		{
-
-
-			return BadRequest("Not yet implemented...");
+			try
+			{
+				return BadRequest("Not yet implemented...");
+			}
+			catch (BadHttpRequestException ex)
+			{
+				return BadRequest(ex.Message);
+			}
+			catch (Exception ex)
+			{
+				return StatusCode(500, ex.Message);
+			}
 		}
 	}
 }

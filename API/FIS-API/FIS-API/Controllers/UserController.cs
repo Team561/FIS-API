@@ -1,8 +1,11 @@
 ﻿using FIS_API.Dtos;
 using FIS_API.Models;
 using FIS_API.Security;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Net;
+using System.Security.Claims;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -25,11 +28,11 @@ namespace FIS_API.Controllers
 		[HttpPost("[action]")]
 		public ActionResult LogIn(LoginDto loginData)
 		{
+			loginData.Username = loginData.Username.Trim();
+			loginData.Password = loginData.Password.Trim();
+
 			try
 			{
-				loginData.Username = loginData.Username.Trim();
-				loginData.Password = loginData.Password.Trim();
-
 				var genericLoginFail = "Incorrect username or password";
 
 				// Try to get a user from database
@@ -48,11 +51,15 @@ namespace FIS_API.Controllers
 				var serializedToken =
 					JwtTokenProvider.CreateToken(
 						secureKey,
-						360,
+						3600,
 						loginData.Username,
 						existingUser.User.Rank.Name);
 
 				return Ok(serializedToken);
+			}
+			catch (BadHttpRequestException ex)
+			{
+				return BadRequest(ex.Message);
 			}
 			catch (Exception ex)
 			{
@@ -61,11 +68,53 @@ namespace FIS_API.Controllers
 		}
 
 		[HttpPost("[action]")]
-		public ActionResult GetSaltAndHashForPassword(IWebHostEnvironment env, string password)
+		[Authorize]
+		public ActionResult<FirefighterDto> FetchPersonalData(bool includeAdditionalData = false)
+		{
+			try
+			{
+				string username = JWTUsernameReader.Read(User);
+
+				FirefighterDto result = null;
+
+				if (includeAdditionalData)
+				{
+					var userData = _context.Logins.Include(x => x.User).ThenInclude(x => x.Rank)
+						.Include(x => x.User.Fd).ThenInclude(x => x.Cmdr).ThenInclude(x => x.Rank).FirstOrDefault(x => x.Username == username);
+
+					result = FirefighterDto.GetDtoFromFirefighter(userData.User, true, true);
+				}
+				else
+				{
+					var userData = _context.Logins.Include(x => x.User).ThenInclude(x => x.Rank).FirstOrDefault(x => x.Username == username);
+
+					result = FirefighterDto.GetDtoFromFirefighter(userData.User);
+				}
+
+				return Ok(result);
+			}
+			catch (BadHttpRequestException ex)
+			{
+				return BadRequest(ex.Message);
+			}
+			catch (Exception ex)
+			{
+				return StatusCode(500, ex.Message);
+			}
+		}
+
+		[HttpPost("[action]")]
+		public ActionResult GenerateSaltAndHashForPassword(IWebHostEnvironment env, string password)
 		{
 			if(!env.IsDevelopment())
 			{
-				return BadRequest("DEV MODE ONLY, BUZZ OFF");
+				return BadRequest("Dev mode only, sorry");
+			}
+
+			IPAddress addr = System.Net.IPAddress.Parse(HttpContext.Connection.RemoteIpAddress.ToString());
+			if (!System.Net.IPAddress.IsLoopback(addr))
+			{
+				return BadRequest("Localhost only, sorry");
 			}
 
 			try
@@ -79,6 +128,10 @@ namespace FIS_API.Controllers
 				List<string> result = new List<string>() { "PASS: [" + password + ']', "SALT: [" + b64salt + ']', "HASH: [" + b64hash + ']' };
 
 				return Ok(result);
+			}
+			catch (BadHttpRequestException ex)
+			{
+				return BadRequest(ex.Message);
 			}
 			catch (Exception ex)
 			{
