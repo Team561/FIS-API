@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Text;
+using System.Text.Json.Serialization;
 
 namespace FIS_API
 {
@@ -69,6 +70,10 @@ namespace FIS_API
 			builder.Services.AddDbContext<FirefighterDbContext>(options => {
 				options.UseSqlServer("name=ConnectionStrings:ffDB");
 			});
+
+			builder.Services.AddControllersWithViews() // Circular references are dead, long live monitored circular references!
+				.AddJsonOptions(options =>
+					options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.Preserve);
 
 			var app = builder.Build();
 
