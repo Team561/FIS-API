@@ -7,9 +7,11 @@ public partial class Login
 {
     public string Username { get; set; } = null!;
 
-    public byte[]? Password { get; set; }
+    public string PasswordHash { get; set; } = null!;
 
-    public Guid? UserGuid { get; set; }
+    public string PasswordSalt { get; set; } = null!;
 
-    public virtual Firefighter? User { get; set; }
+    public Guid UserGuid { get; set; }
+
+    public virtual Firefighter User { get; set; } = null!;
 }

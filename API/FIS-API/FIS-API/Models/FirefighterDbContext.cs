@@ -30,13 +30,13 @@ public partial class FirefighterDbContext : DbContext
     public virtual DbSet<Rank> Ranks { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        => optionsBuilder.UseSqlServer("Name=ConnectionStrings:ffDB");
+        => optionsBuilder.UseSqlServer("name=ConnectionStrings:ffDB");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<FireDepartment>(entity =>
         {
-            entity.HasKey(e => e.IdFd).HasName("PK__FireDepa__8B622763022EDD6D");
+            entity.HasKey(e => e.IdFd).HasName("PK__FireDepa__8B622763CC08FB3B");
 
             entity.ToTable("FireDepartment");
 
@@ -54,7 +54,7 @@ public partial class FirefighterDbContext : DbContext
 
         modelBuilder.Entity<Firefighter>(entity =>
         {
-            entity.HasKey(e => e.IdFf).HasName("PK__Firefigh__8B62276124A22E48");
+            entity.HasKey(e => e.IdFf).HasName("PK__Firefigh__8B622761B5A201A7");
 
             entity.ToTable("Firefighter");
 
@@ -80,7 +80,7 @@ public partial class FirefighterDbContext : DbContext
 
         modelBuilder.Entity<FirefighterIntervention>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Firefigh__3214EC270DF8B1D2");
+            entity.HasKey(e => e.Id).HasName("PK__Firefigh__3214EC2780A6D464");
 
             entity.ToTable("Firefighter-Intervention");
 
@@ -101,7 +101,7 @@ public partial class FirefighterDbContext : DbContext
 
         modelBuilder.Entity<Intervention>(entity =>
         {
-            entity.HasKey(e => e.IdInt).HasName("PK__Interven__2C7D41C24497F725");
+            entity.HasKey(e => e.IdInt).HasName("PK__Interven__2C7D41C2A8DB6317");
 
             entity.ToTable("Intervention");
 
@@ -123,7 +123,7 @@ public partial class FirefighterDbContext : DbContext
 
         modelBuilder.Entity<InterventionType>(entity =>
         {
-            entity.HasKey(e => e.IdType).HasName("PK__Interven__DF519A38BCE6C620");
+            entity.HasKey(e => e.IdType).HasName("PK__Interven__DF519A3816640998");
 
             entity.ToTable("InterventionType");
 
@@ -133,24 +133,24 @@ public partial class FirefighterDbContext : DbContext
 
         modelBuilder.Entity<Login>(entity =>
         {
-            entity.HasKey(e => e.Username).HasName("PK__Login__536C85E588D70F4D");
+            entity.HasKey(e => e.Username).HasName("PK__Login__536C85E5D7F5A136");
 
             entity.ToTable("Login");
 
             entity.Property(e => e.Username).HasMaxLength(50);
-            entity.Property(e => e.Password)
-                .HasMaxLength(64)
-                .IsFixedLength();
+            entity.Property(e => e.PasswordHash).HasMaxLength(256);
+            entity.Property(e => e.PasswordSalt).HasMaxLength(256);
             entity.Property(e => e.UserGuid).HasColumnName("UserGUID");
 
             entity.HasOne(d => d.User).WithMany(p => p.Logins)
                 .HasForeignKey(d => d.UserGuid)
+                .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_FirefighterID");
         });
 
         modelBuilder.Entity<Rank>(entity =>
         {
-            entity.HasKey(e => e.IdRank).HasName("PK__Rank__7F58156D0DB38DC6");
+            entity.HasKey(e => e.IdRank).HasName("PK__Rank__7F58156D0FB118BB");
 
             entity.ToTable("Rank");
 
