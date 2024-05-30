@@ -33,7 +33,7 @@ namespace FIS_API.Controllers
 
 			try
 			{
-				var genericLoginFail = "Incorrect username or password";
+				const string genericLoginFail = "Incorrect username or password";
 
 				// Try to get a user from database
 				var existingUser = _context.Logins.Include(x => x.User).Include(x => x.User.Rank).FirstOrDefault(x => x.Email == loginData.Username);
@@ -73,7 +73,7 @@ namespace FIS_API.Controllers
 		{
 			try
 			{
-				string email = JwtTokenProvider.ReadMailFromToken(User); ;
+				string email = JwtTokenProvider.ReadMailFromToken(User);
 
 				FirefighterDto result = null;
 
@@ -148,19 +148,20 @@ namespace FIS_API.Controllers
 		[HttpPost("[action]")]
 		public ActionResult GenerateSaltAndHashForPassword(IWebHostEnvironment env, string password)
 		{
-			if(!env.IsDevelopment())
-			{
-				return BadRequest("Dev mode only, sorry");
-			}
-
-			IPAddress addr = System.Net.IPAddress.Parse(HttpContext.Connection.RemoteIpAddress.ToString());
-			if (!System.Net.IPAddress.IsLoopback(addr))
-			{
-				return BadRequest("Localhost only, sorry");
-			}
 
 			try
 			{
+				if (!env.IsDevelopment())
+				{
+					return BadRequest("Dev mode only, sorry");
+				}
+
+				IPAddress addr = System.Net.IPAddress.Parse(HttpContext.Connection.RemoteIpAddress.ToString());
+				if (!System.Net.IPAddress.IsLoopback(addr))
+				{
+					return BadRequest("Localhost only, sorry");
+				}
+
 				password = password.Trim();
 
 				// Hash the password
