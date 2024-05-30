@@ -133,11 +133,11 @@ public partial class FirefighterDbContext : DbContext
 
         modelBuilder.Entity<Login>(entity =>
         {
-            entity.HasKey(e => e.Username).HasName("PK__Login__536C85E5D7F5A136");
+            entity.HasKey(e => e.Email).HasName("PK__Login__A9D1053554AA6CF7");
 
             entity.ToTable("Login");
 
-            entity.Property(e => e.Username).HasMaxLength(50);
+            entity.Property(e => e.Email).HasMaxLength(60);
             entity.Property(e => e.PasswordHash).HasMaxLength(256);
             entity.Property(e => e.PasswordSalt).HasMaxLength(256);
             entity.Property(e => e.UserGuid).HasColumnName("UserGUID");

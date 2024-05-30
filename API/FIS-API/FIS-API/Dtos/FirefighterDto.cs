@@ -15,11 +15,11 @@ namespace FIS_API.Dtos
 
 		public bool Active { get; set; }
 
-		public string Rank { get; set; }
+		public int RankId { get; set; }
 
 		public FireDepartmentDto? FireDept { get; set; }
 
-		internal static FirefighterDto GetDtoFromFirefighter(Firefighter firefighter, bool includeFireDept = false, bool includeCommander = false)
+		internal static FirefighterDto GetDtoFromFirefighter(Firefighter firefighter, bool includeFireDept = false, bool includeChief = false)
 		{
 			var dto = new FirefighterDto();
 
@@ -28,9 +28,9 @@ namespace FIS_API.Dtos
 			dto.Surname = firefighter.Surname;
 			dto.ActiveDate = firefighter.ActiveDate;
 			dto.Active = firefighter.Active;
-			dto.Rank = firefighter.Rank.Name;
+			dto.RankId = firefighter.RankId;
 
-			if (includeFireDept) dto.FireDept = FireDepartmentDto.GetDtoFromFireDept(firefighter.Fd, includeCommander);
+			if (includeFireDept) dto.FireDept = FireDepartmentDto.GetDtoFromFireDept(firefighter.Fd, includeChief);
 
 			return dto;
 		}

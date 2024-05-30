@@ -100,7 +100,7 @@ go
 
 CREATE TABLE dbo.[Login]
 (
-	[Username] nvarchar(50) primary key,
+	[Email] nvarchar(60) primary key,
     [PasswordHash] nvarchar(256) not null,
     [PasswordSalt] nvarchar(256) not null,
     [UserGUID] uniqueidentifier not null

@@ -42,6 +42,18 @@ namespace FIS_API.Security
             var serializedToken = tokenHandler.WriteToken(token);
 
             return serializedToken;
-        }
-    }
+		}
+
+		public static string ReadMailFromToken(ClaimsPrincipal User)
+		{
+			string username = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+			if (username == null)
+			{
+				throw new BadHttpRequestException("Token has no username. Wait, what? How did you get here? Get the hell out of my house.");
+			}
+
+			return username;
+		}
+	}
 }

@@ -10,20 +10,19 @@ namespace FIS_API.Dtos
 
 		public bool Active { get; set; }
 
-		public string InterventionType { get; set; }
+		public int InterventionTypeId { get; set; }
 
-		public FirefighterDto? Commander { get; set; }
+		public Guid CommanderId { get; set; }
 
-		public static InterventionDto GetDtoFromIntervention(Intervention intervention, bool includeCommander = false)
+		public static InterventionDto GetDtoFromIntervention(Intervention intervention)
 		{
 			var dto = new InterventionDto();
 
 			dto.InterventionId = intervention.IdInt;
 			dto.Location = intervention.Location;
 			dto.Active = intervention.Active;
-			dto.InterventionType = intervention.Type.Name;
-
-			if(includeCommander) dto.Commander = FirefighterDto.GetDtoFromFirefighter(intervention.Cmdr);
+			dto.InterventionTypeId = intervention.TypeId;
+			dto.CommanderId = intervention.CmdrId;
 
 			return dto;
 		}

@@ -36,7 +36,7 @@ namespace FIS_API.Controllers
 				var genericLoginFail = "Incorrect username or password";
 
 				// Try to get a user from database
-				var existingUser = _context.Logins.Include(x => x.User).Include(x => x.User.Rank).FirstOrDefault(x => x.Username == loginData.Username);
+				var existingUser = _context.Logins.Include(x => x.User).Include(x => x.User.Rank).FirstOrDefault(x => x.Email == loginData.Username);
 				if (existingUser == null)
 					return BadRequest(genericLoginFail);
 
@@ -73,20 +73,20 @@ namespace FIS_API.Controllers
 		{
 			try
 			{
-				string username = JWTUsernameReader.Read(User);
+				string email = JwtTokenProvider.ReadMailFromToken(User); ;
 
 				FirefighterDto result = null;
 
 				if (includeAdditionalData)
 				{
-					var userData = _context.Logins.Include(x => x.User).ThenInclude(x => x.Rank)
-						.Include(x => x.User.Fd).ThenInclude(x => x.Cmdr).ThenInclude(x => x.Rank).FirstOrDefault(x => x.Username == username);
+					var userData = _context.Logins.Include(x => x.User)
+						.Include(x => x.User.Fd).ThenInclude(x => x.Cmdr).FirstOrDefault(x => x.Email == email);
 
 					result = FirefighterDto.GetDtoFromFirefighter(userData.User, true, true);
 				}
 				else
 				{
-					var userData = _context.Logins.Include(x => x.User).ThenInclude(x => x.Rank).FirstOrDefault(x => x.Username == username);
+					var userData = _context.Logins.Include(x => x.User).ThenInclude(x => x.Rank).FirstOrDefault(x => x.Email == email);
 
 					result = FirefighterDto.GetDtoFromFirefighter(userData.User);
 				}
@@ -96,6 +96,20 @@ namespace FIS_API.Controllers
 			catch (BadHttpRequestException ex)
 			{
 				return BadRequest(ex.Message);
+			}
+			catch (Exception ex)
+			{
+				return StatusCode(500, ex.Message);
+			}
+		}
+
+		[HttpPost("[action]")]
+		[Authorize]
+		public ActionResult FetchRanks()
+		{
+			try
+			{
+				return Ok(RankDto.GetAllDtosFromContext(_context));
 			}
 			catch (Exception ex)
 			{

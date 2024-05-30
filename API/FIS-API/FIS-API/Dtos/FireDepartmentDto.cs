@@ -12,11 +12,11 @@ namespace FIS_API.Dtos
 
 		public bool Active { get; set; }
 
-		public virtual FirefighterDto? Commander { get; set; }
+		public Guid? CommanderId { get; set; }
 
-		public virtual ICollection<FirefighterDto> Firefighters { get; set; } = new List<FirefighterDto>();
+		public virtual FirefighterDto fireChief { get; set; } = null!;
 
-		internal static FireDepartmentDto GetDtoFromFireDept(FireDepartment fireDept, bool includeCmdr = false, bool includeFirefighters = false)
+		internal static FireDepartmentDto GetDtoFromFireDept(FireDepartment fireDept, bool includeFireChief = false)
 		{
 			var dto = new FireDepartmentDto();
 
@@ -24,12 +24,9 @@ namespace FIS_API.Dtos
 			dto.Name = fireDept.Name;
 			dto.Location = fireDept.Location;
 			dto.Active = fireDept.Active;
+			dto.CommanderId = fireDept.CmdrId;
 
-			if (includeCmdr)
-				dto.Commander = FirefighterDto.GetDtoFromFirefighter(fireDept.Cmdr);
-			if(includeFirefighters)
-				foreach (Firefighter ff in fireDept.Firefighters)
-					dto.Firefighters.Add(FirefighterDto.GetDtoFromFirefighter(ff));
+			if (includeFireChief) dto.fireChief = FirefighterDto.GetDtoFromFirefighter(fireDept.Cmdr);
 
 			return dto;
 		}
