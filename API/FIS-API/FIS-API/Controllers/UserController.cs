@@ -118,6 +118,34 @@ namespace FIS_API.Controllers
 		}
 
 		[HttpPost("[action]")]
+		[Authorize(Roles = "Fire Fighter Commander")]
+		public ActionResult FetchCommanderFirefighters(bool includeInactive)
+		{
+			try
+			{
+				string email = JwtTokenProvider.ReadMailFromToken(User);
+
+				var userData = _context.Logins.Include(x => x.User).ThenInclude(x => x.FireDepartments).ThenInclude(x => x.Firefighters).FirstOrDefault(x => x.Email == email);
+
+				List<FirefighterDto> result = new();
+
+				foreach (FireDepartment fd in userData.User.FireDepartments)
+					foreach (Firefighter ff in fd.Firefighters)
+						result.Add(FirefighterDto.GetDtoFromFirefighter(ff));
+
+				return Ok(result);
+			}
+			catch (BadHttpRequestException ex)
+			{
+				return BadRequest(ex.Message);
+			}
+			catch (Exception ex)
+			{
+				return StatusCode(500, ex.Message);
+			}
+		}
+
+		[HttpPost("[action]")]
 		public ActionResult GenerateSaltAndHashForPassword(IWebHostEnvironment env, string password)
 		{
 			if(!env.IsDevelopment())

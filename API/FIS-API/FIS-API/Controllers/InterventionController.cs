@@ -91,7 +91,7 @@ namespace FIS_API.Controllers
 
 		[HttpPost("[action]")]
 		[Authorize]
-		public ActionResult<InterventionDto> FetchUserInterventionCommander(int InterventionId)
+		public ActionResult<InterventionDto> FetchInterventionCommander(int InterventionId)
 		{
 			try
 			{
@@ -102,7 +102,7 @@ namespace FIS_API.Controllers
 					.Include(x => x.User.FirefighterInterventions).ThenInclude(x => x.Int).ThenInclude(x => x.Cmdr)
 					.FirstOrDefault(x => x.Email == email);
 
-				var intervention = userData.User.FirefighterInterventions.FirstOrDefault(x => x.Int.IdInt == InterventionId).Int;
+				var intervention = userData.User.FirefighterInterventions.FirstOrDefault(x => x.Int.IdInt == InterventionId)?.Int;
 					
 				if (intervention == null)
 					return BadRequest("Invalid intervention ID (or user unauthorized),");
@@ -147,7 +147,8 @@ namespace FIS_API.Controllers
 				{
 					CmdrId = targetChief,
 					Location = interventionData.Location,
-					TypeId = interventionData.InterventionTypeId
+					TypeId = interventionData.InterventionTypeId,
+					Active = true
 				};
 
 				_context.Interventions.Add(newIntervention);
@@ -171,7 +172,35 @@ namespace FIS_API.Controllers
 		{
 			try
 			{
-				return BadRequest("Not yet implemented...");
+				string email = JwtTokenProvider.ReadMailFromToken(User);
+
+				var chiefData = _context.Logins.Include(x => x.User).ThenInclude(x => x.Interventions)
+					.Include(x => x.User.FireDepartments).ThenInclude(x => x.Firefighters)
+					.FirstOrDefault(x => x.Email == email);
+
+				var intervention = chiefData.User.Interventions.FirstOrDefault(x => x.IdInt == interventionID);
+				if (intervention == null)
+					return BadRequest("Bad intervention ID");
+
+				if(_context.FirefighterInterventions.FirstOrDefault(x => ((x.FfId.ToString() == firefighterUID) && (x.IntId == interventionID))) != null)
+					return BadRequest("Intervention - firefighter pair already exists!");
+
+				Firefighter firefighter = null;
+				foreach(FireDepartment fd in chiefData.User.FireDepartments) // Should only be one
+					foreach(Firefighter ff in fd.Firefighters)
+						if(ff.IdFf.ToString() == firefighterUID)
+						{
+							var link = new FirefighterIntervention();
+							link.FfId = ff.IdFf;
+							link.IntId = intervention.IdInt;
+
+							_context.FirefighterInterventions.Add(link);
+							_context.SaveChanges();
+
+							return Ok("Firefighter successfully added to intervention.");
+						}
+
+				return BadRequest("Bad firefighter ID");
 			}
 			catch (BadHttpRequestException ex)
 			{
@@ -185,11 +214,23 @@ namespace FIS_API.Controllers
 
 		[HttpPost("[action]")]
 		[Authorize(Roles = "Fire Fighter Commander")]
-		public ActionResult SetInterventionState(int interventionID, bool active)
+		public ActionResult SetInterventionState(int interventionID, bool active = false)
 		{
 			try
 			{
-				return BadRequest("Not yet implemented...");
+				string email = JwtTokenProvider.ReadMailFromToken(User);
+
+				var chiefData = _context.Logins.Include(x => x.User).ThenInclude(x => x.Interventions)
+					.FirstOrDefault(x => x.Email == email);
+
+				var intervention = chiefData.User.Interventions.FirstOrDefault(x => x.IdInt == interventionID);
+				if (intervention == null)
+					return BadRequest("Bad intervention ID");
+
+				intervention.Active = active;
+				_context.SaveChanges();
+
+				return Ok($"Intervention state successfully set to ${active}");
 			}
 			catch (BadHttpRequestException ex)
 			{
