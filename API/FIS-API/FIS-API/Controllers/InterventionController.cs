@@ -105,7 +105,7 @@ namespace FIS_API.Controllers
 				var intervention = userData.User.FirefighterInterventions.FirstOrDefault(x => x.Int.IdInt == InterventionId)?.Int;
 					
 				if (intervention == null)
-					return BadRequest("Invalid intervention ID (or user unauthorized),");
+					return BadRequest("Invalid intervention ID or user did not participate in target intervention");
 
 				return Ok(FirefighterDto.GetDtoFromFirefighter(intervention.Cmdr));
 			}
@@ -183,7 +183,7 @@ namespace FIS_API.Controllers
 					return BadRequest("Bad intervention ID");
 
 				if(_context.FirefighterInterventions.FirstOrDefault(x => ((x.FfId.ToString() == firefighterUID) && (x.IntId == interventionID))) != null)
-					return BadRequest("Intervention - firefighter pair already exists!");
+					return BadRequest("Intervention - firefighter pair already exists");
 
 				Firefighter firefighter = null;
 				foreach(FireDepartment fd in chiefData.User.FireDepartments) // Should only be one
