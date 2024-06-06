@@ -1,4 +1,5 @@
 ﻿using FIS_API.Dtos;
+using FIS_API.Dtos.Outbound;
 using FIS_API.Models;
 using FIS_API.Security;
 using Microsoft.AspNetCore.Authorization;
@@ -25,24 +26,28 @@ namespace FIS_API.Controllers
 
 		[HttpPost("[action]")]
 		[Authorize]
-		public ActionResult<IEnumerable<InterventionDto>> FetchUserInterventions(bool includeInactive = false)
+		public ActionResult<UserInterventionsOutDto> FetchUserInterventions(bool includeActive = false, bool includeInactive = false)
 		{
 			try
 			{
+				if (!includeActive && !includeInactive)
+					return BadRequest("It is pointless.");
+
 				string email = JwtTokenProvider.ReadMailFromToken(User);
 
 				var userData = _context.Logins.Include(x => x.User)
 						.Include(x => x.User.FirefighterInterventions).ThenInclude(x => x.Int).FirstOrDefault(x => x.Email == email);
 
-				List<InterventionDto> result = new List<InterventionDto>();
+				UserInterventionsOutDto result = new();
 
+				if (includeActive)
+					foreach (FirefighterIntervention FFIntervention in userData.User.FirefighterInterventions)
+						if (FFIntervention.Int.Active)
+							result.ActiveInterventions.Add(InterventionOutDto.GetDtoFromIntervention(FFIntervention.Int));
 				if (includeInactive)
-					foreach (FirefighterIntervention intervention in userData.User.FirefighterInterventions)
-						result.Add(InterventionDto.GetDtoFromIntervention(intervention.Int));
-				else
-					foreach (FirefighterIntervention intervention in userData.User.FirefighterInterventions)
-						if (intervention.Int.Active)
-							result.Add(InterventionDto.GetDtoFromIntervention(intervention.Int));
+					foreach (FirefighterIntervention FFIntervention in userData.User.FirefighterInterventions)
+						if (!FFIntervention.Int.Active)
+							result.InactiveInterventions.Add(InterventionOutDto.GetDtoFromIntervention(FFIntervention.Int));
 
 				return Ok(result);
 			}
@@ -58,24 +63,28 @@ namespace FIS_API.Controllers
 
 		[HttpPost("[action]")]
 		[Authorize]
-		public ActionResult<IEnumerable<InterventionDto>> FetchCommanderInterventions(bool includeInactive = false)
+		public ActionResult<IEnumerable<InterventionOutDto>> FetchCommanderInterventions(bool includeActive = false, bool includeInactive = false)
 		{
 			try
 			{
+				if (!includeActive && !includeInactive)
+					return BadRequest("It is pointless.");
+
 				string email = JwtTokenProvider.ReadMailFromToken(User);
 
 				var userData = _context.Logins.Include(x => x.User)
 						.Include(x => x.User.Interventions).FirstOrDefault(x => x.Email == email);
 
-				List<InterventionDto> result = new List<InterventionDto>();
+				UserInterventionsOutDto result = new();
 
-				if (includeInactive)
-					foreach (Intervention intervention in userData.User.Interventions)
-						result.Add(InterventionDto.GetDtoFromIntervention(intervention));
-				else
+				if (includeActive)
 					foreach (Intervention intervention in userData.User.Interventions)
 						if (intervention.Active)
-							result.Add(InterventionDto.GetDtoFromIntervention(intervention));
+							result.ActiveInterventions.Add(InterventionOutDto.GetDtoFromIntervention(intervention));
+				if (includeInactive)
+					foreach (Intervention intervention in userData.User.Interventions)
+						if (!intervention.Active)
+							result.InactiveInterventions.Add(InterventionOutDto.GetDtoFromIntervention(intervention));
 
 				return Ok(result);
 			}
@@ -91,7 +100,7 @@ namespace FIS_API.Controllers
 
 		[HttpPost("[action]")]
 		[Authorize]
-		public ActionResult<InterventionDto> FetchInterventionCommander(int InterventionId)
+		public ActionResult<FirefighterOutDto> FetchInterventionCommander(int InterventionId)
 		{
 			try
 			{
@@ -107,7 +116,7 @@ namespace FIS_API.Controllers
 				if (intervention == null)
 					return BadRequest("Invalid intervention ID or user did not participate in target intervention");
 
-				return Ok(FirefighterDto.GetDtoFromFirefighter(intervention.Cmdr));
+				return Ok(FirefighterOutDto.GetDtoFromFirefighter(intervention.Cmdr));
 			}
 			catch (BadHttpRequestException ex)
 			{
@@ -125,7 +134,7 @@ namespace FIS_API.Controllers
 		{
 			try
 			{
-				return Ok(InterventionTypeDto.GetAllDtosFromContext(_context));
+				return Ok(InterventionTypeOutDto.GetAllDtosFromContext(_context));
 			}
 			catch (Exception ex)
 			{
@@ -135,7 +144,7 @@ namespace FIS_API.Controllers
 
 		[HttpPost("[action]")]
 		[Authorize(Roles = "Fire Fighter Commander")]
-		public ActionResult CreateIntervention(InterventionDto interventionData)
+		public ActionResult CreateIntervention(InterventionInDto interventionData)
 		{
 			try
 			{
@@ -201,6 +210,42 @@ namespace FIS_API.Controllers
 						}
 
 				return BadRequest("Bad firefighter ID");
+			}
+			catch (BadHttpRequestException ex)
+			{
+				return BadRequest(ex.Message);
+			}
+			catch (Exception ex)
+			{
+				return StatusCode(500, ex.Message);
+			}
+		}
+
+		[HttpPost("[action]")]
+		[Authorize(Roles = "Fire Fighter Commander")]
+		public ActionResult<List<FirefighterOutDto>> GetInterventionParticipants(int InterventionID)
+		{
+			try
+			{
+				string email = JwtTokenProvider.ReadMailFromToken(User);
+
+				var chiefData = _context.Logins.Include(x => x.User).ThenInclude(x => x.Interventions).ThenInclude(x => x.FirefighterInterventions)
+					.ThenInclude(x => x.Ff).FirstOrDefault(x => x.Email == email);
+
+				var intervention = chiefData.User.Interventions.FirstOrDefault(x => x.IdInt == InterventionID);
+				if (intervention == null)
+				{
+					return BadRequest("Bad interventionID");
+				}
+
+				var result = new List<FirefighterOutDto>();
+
+				foreach (FirefighterIntervention ffInt in intervention.FirefighterInterventions)
+				{
+					result.Add(FirefighterOutDto.GetDtoFromFirefighter(ffInt.Ff));
+				}
+
+				return Ok(result);
 			}
 			catch (BadHttpRequestException ex)
 			{
