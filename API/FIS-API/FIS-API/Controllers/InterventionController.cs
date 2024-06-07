@@ -1,5 +1,6 @@
 ﻿using FIS_API.Dtos;
 using FIS_API.Dtos.Outbound;
+using FIS_API.Logic;
 using FIS_API.Models;
 using FIS_API.Security;
 using Microsoft.AspNetCore.Authorization;
@@ -175,6 +176,7 @@ namespace FIS_API.Controllers
 			}
 		}
 
+		/*
 		[HttpPost("[action]")]
 		[Authorize(Roles = "Fire Fighter Commander")]
 		public ActionResult AddFirefighterToIntervention(int interventionID, string firefighterUID)
@@ -220,6 +222,7 @@ namespace FIS_API.Controllers
 				return StatusCode(500, ex.Message);
 			}
 		}
+		*/
 
 		[HttpPost("[action]")]
 		[Authorize(Roles = "Fire Fighter Commander")]
@@ -246,6 +249,82 @@ namespace FIS_API.Controllers
 				}
 
 				return Ok(result);
+			}
+			catch (BadHttpRequestException ex)
+			{
+				return BadRequest(ex.Message);
+			}
+			catch (Exception ex)
+			{
+				return StatusCode(500, ex.Message);
+			}
+		}
+
+		[HttpPost("[action]")]
+		[Authorize(Roles = "Fire Fighter Commander")]
+		public ActionResult RemoveIntervention(int interventionID)
+		{
+			try
+			{
+				string email = JwtTokenProvider.ReadMailFromToken(User);
+
+				var chiefData = _context.Logins.Include(x => x.User).ThenInclude(x => x.Interventions)
+					.FirstOrDefault(x => x.Email == email);
+
+				var intervention = chiefData.User.Interventions.FirstOrDefault(x => x.IdInt == interventionID);
+				if (intervention == null)
+					return BadRequest("Bad intervention ID");
+
+				if (intervention.Active == false)
+					return BadRequest("Intervention already inactive");
+
+				intervention.Active = false;
+				_context.SaveChanges();
+
+				InterventionRecoveryHandler.addRecoverableIntervention(interventionID, _configuration);
+
+				return Ok($"Intervention state successfully changed");
+
+			}
+			catch (BadHttpRequestException ex)
+			{
+				return BadRequest(ex.Message);
+			}
+			catch (Exception ex)
+			{
+				return StatusCode(500, ex.Message);
+			}
+		}
+
+		[HttpPost("[action]")]
+		[Authorize(Roles = "Fire Fighter Commander")]
+		public ActionResult RecoverIntervention(int interventionID)
+		{
+			try
+			{
+				string email = JwtTokenProvider.ReadMailFromToken(User);
+
+				var chiefData = _context.Logins.Include(x => x.User).ThenInclude(x => x.Interventions)
+					.FirstOrDefault(x => x.Email == email);
+
+				var intervention = chiefData.User.Interventions.FirstOrDefault(x => x.IdInt == interventionID);
+				if (intervention == null)
+					return BadRequest("Bad intervention ID");
+
+				if (intervention.Active == true)
+					return BadRequest("Intervention already active");
+
+				int recTime = InterventionRecoveryHandler.checkRecoverableInterventionTime(interventionID);
+
+				if (recTime <= 0)
+					return BadRequest("Intervention not recoverable");
+
+				intervention.Active = true;
+				_context.SaveChanges();
+
+				InterventionRecoveryHandler.interventionRecovered(interventionID);
+
+				return Ok($"Intervention state successfully changed");
 			}
 			catch (BadHttpRequestException ex)
 			{
