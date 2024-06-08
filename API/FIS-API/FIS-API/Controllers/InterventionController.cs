@@ -226,7 +226,7 @@ namespace FIS_API.Controllers
 
 		[HttpPost("[action]")]
 		[Authorize(Roles = "Fire Fighter Commander")]
-		public ActionResult<List<FirefighterOutDto>> GetInterventionParticipants(int InterventionID)
+		public ActionResult<List<FirefighterOutDto>> FetchInterventionParticipants(int InterventionID)
 		{
 			try
 			{

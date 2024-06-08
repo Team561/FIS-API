@@ -1,4 +1,5 @@
 ﻿using FIS_API.Models;
+using System.Collections.Generic;
 using System.Timers;
 
 namespace FIS_API.Logic
@@ -17,24 +18,18 @@ namespace FIS_API.Logic
 
 			targetTime = targetTime.AddMinutes(double.Parse(config["Time:InterventionRecoveryTimeoutMinutes"]));
 
-			bool timerCheck = false;
-
 			try
 			{
 				queuedLock.Enter();
 
 				recoveryData.AddLast(new KeyValuePair<int, DateTime>(interventionID, targetTime));
-
-				if (recoveryData.Count == 1)
-					timerCheck = true;
 			}
 			finally
 			{
 				queuedLock.Exit();
 			}
 
-			if(timerCheck)
-				checkTimer();
+			checkTimer();
 		}
 
         public static int checkRecoverableInterventionTime(int interventionID)
@@ -56,40 +51,28 @@ namespace FIS_API.Logic
 
 		public static void interventionRecovered(int interventionID)
 		{
-			bool resetTimer = false;
 			try
 			{
 				queuedLock.Enter();
 
-				int index = 0;
-
-				foreach (var thing in recoveryData)
+				var node = recoveryData.First;
+				while (node != null)
 				{
-					if (thing.Key == interventionID)
-					{
-						if (index == 0)
-						{
-							noLockTimerFinish();
-							resetTimer = true;
-						}
-						else
-							recoveryData.Remove(thing);
+					var next = node.Next;
 
+					if (node.Value.Key == interventionID)
+					{
+						recoveryData.Remove(node);
 						break;
 					}
 
-					index += 1;
+					node = next;
 				}
 			}
 			finally
 			{
 				queuedLock.Exit();
 			}
-
-			if (!resetTimer)
-				return;
-
-			checkTimer();
 		}
 
 		private static void onTimedEvent(object? state)
@@ -98,12 +81,31 @@ namespace FIS_API.Logic
 			{
 				queuedLock.Enter();
 
-				noLockTimerFinish();
+				tickTock.Dispose();
+				tickTock = null;
+
+				var node = recoveryData.First;
+
+				while (node != null)
+				{
+					var next = node.Next;
+
+					var comparison = DateTime.Compare(node.Value.Value, DateTime.Now);
+
+					if (comparison > 0)
+						recoveryData.Remove(node);
+					else
+						break; // these node values are always ordered
+
+					node = next;
+				}
 			}
 			finally
 			{
 				queuedLock.Exit();
 			}
+
+			checkTimer();
 		}
 
 		private static void checkTimer()
@@ -115,7 +117,12 @@ namespace FIS_API.Logic
 				if (tickTock == null && recoveryData.First != null)
 				{
 					var targetDate = recoveryData.First.Value.Value;
-					tickTock = new System.Threading.Timer(onTimedEvent, null, (long)(targetDate - DateTime.Now).TotalMilliseconds + 1000, Timeout.Infinite);
+
+					var duration = (long)(targetDate - DateTime.Now).TotalMilliseconds + 10000;
+					if (duration < 1)
+						duration = 1;
+
+					tickTock = new System.Threading.Timer(onTimedEvent, recoveryData.First, duration, Timeout.Infinite);
 				}
 			}
 			finally
@@ -123,16 +130,5 @@ namespace FIS_API.Logic
 				queuedLock.Exit();
 			}
         }
-
-		private static void noLockTimerFinish() // Lock before use (important)
-		{
-			if (tickTock == null)
-				return;
-
-			tickTock.Dispose();
-			tickTock = null;
-
-			recoveryData.RemoveFirst();
-		}
 	}
 }
