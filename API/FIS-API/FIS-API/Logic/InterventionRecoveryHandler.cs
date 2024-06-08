@@ -17,18 +17,24 @@ namespace FIS_API.Logic
 
 			targetTime = targetTime.AddMinutes(double.Parse(config["Time:InterventionRecoveryTimeoutMinutes"]));
 
+			bool timerCheck = false;
+
 			try
 			{
 				queuedLock.Enter();
 
 				recoveryData.AddLast(new KeyValuePair<int, DateTime>(interventionID, targetTime));
+
+				if (recoveryData.Count == 1)
+					timerCheck = true;
 			}
 			finally
 			{
 				queuedLock.Exit();
 			}
 
-			checkTimer();
+			if(timerCheck)
+				checkTimer();
 		}
 
         public static int checkRecoverableInterventionTime(int interventionID)
@@ -74,7 +80,6 @@ namespace FIS_API.Logic
 
 					index += 1;
 				}
-				// Looks like the intervention was already removed between the time check and the recovered notification, do nothing.
 			}
 			finally
 			{
