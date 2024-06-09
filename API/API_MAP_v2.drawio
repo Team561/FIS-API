@@ -1,1 +1,334 @@
-<mxfile host="Electron" modified="2024-06-09T18:47:57.014Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/20.8.16 Chrome/106.0.5249.199 Electron/21.4.0 Safari/537.36" etag="zi-eV3SSyI-vpQCfDvBQ" version="20.8.16" type="device"><diagram name="Page-1" id="-M5JCUoV6t4QpaWMbMyS">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</diagram></mxfile>
+<mxfile host="Electron" modified="2024-06-09T19:31:15.801Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/20.8.16 Chrome/106.0.5249.199 Electron/21.4.0 Safari/537.36" etag="muZ0WMsM9XnC3iqibm5q" compressed="false" version="20.8.16" type="device">
+  <diagram name="Page-1" id="-M5JCUoV6t4QpaWMbMyS">
+    <mxGraphModel dx="1418" dy="828" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="ZA_Wk4F1g_JO69uGTBbo-46" value="" style="ellipse;shape=cloud;whiteSpace=wrap;html=1;fillColor=#e51400;fontColor=#ffffff;strokeColor=#B20000;" parent="1" vertex="1">
+          <mxGeometry x="1010" y="115" width="80" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="ZA_Wk4F1g_JO69uGTBbo-14" value="" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;rotation=75;" parent="1" vertex="1">
+          <mxGeometry x="1035" y="100" width="30" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="ZA_Wk4F1g_JO69uGTBbo-15" value="Program.cs" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;align=center;fontSize=14;whiteSpace=wrap;fillColor=#1ba1e2;strokeColor=#006EAF;fontColor=#ffffff;" parent="1" vertex="1">
+          <mxGeometry x="30" y="75" width="270" height="150" as="geometry" />
+        </mxCell>
+        <mxCell id="ZA_Wk4F1g_JO69uGTBbo-16" value="dotnet ef stuff (Derin did this part)" style="text;strokeColor=none;fillColor=none;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=12;" parent="ZA_Wk4F1g_JO69uGTBbo-15" vertex="1">
+          <mxGeometry y="26" width="270" height="24" as="geometry" />
+        </mxCell>
+        <mxCell id="ZA_Wk4F1g_JO69uGTBbo-17" value="Additional JWT and security functionality (see DWA EX6)" style="text;strokeColor=none;fillColor=none;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=12;whiteSpace=wrap;" parent="ZA_Wk4F1g_JO69uGTBbo-15" vertex="1">
+          <mxGeometry y="50" width="270" height="34" as="geometry" />
+        </mxCell>
+        <mxCell id="ZA_Wk4F1g_JO69uGTBbo-18" value="Reference handler - the DB we made has cyclic references which make dotnet ef have an aneurysm and die, but this fixes it!&#xa;Downside is primarily memory." style="text;strokeColor=none;fillColor=none;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=12;whiteSpace=wrap;" parent="ZA_Wk4F1g_JO69uGTBbo-15" vertex="1">
+          <mxGeometry y="84" width="270" height="66" as="geometry" />
+        </mxCell>
+        <mxCell id="ZA_Wk4F1g_JO69uGTBbo-34" value="Security" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;align=center;fontSize=14;whiteSpace=wrap;fillColor=#e51400;fontColor=#ffffff;strokeColor=#B20000;" parent="1" vertex="1">
+          <mxGeometry x="340" y="20" width="270" height="260" as="geometry" />
+        </mxCell>
+        <mxCell id="ZA_Wk4F1g_JO69uGTBbo-36" value="JWT and security functionality (see DWA EX6)" style="text;strokeColor=none;fillColor=none;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=12;whiteSpace=wrap;" parent="ZA_Wk4F1g_JO69uGTBbo-34" vertex="1">
+          <mxGeometry y="26" width="270" height="24" as="geometry" />
+        </mxCell>
+        <mxCell id="zb_7PwyahEYCz32flhl1-1" value="Commander role with no fire department is undefined behaviour, should just spit out 5XX responses" style="text;strokeColor=none;fillColor=none;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=12;whiteSpace=wrap;" parent="ZA_Wk4F1g_JO69uGTBbo-34" vertex="1">
+          <mxGeometry y="50" width="270" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="9k-eRBXJ3-iOaLLvR6IK-3" value="ReadMailFromToken" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;align=center;fontSize=14;whiteSpace=wrap;fillColor=#f8cecc;strokeColor=#b85450;" parent="ZA_Wk4F1g_JO69uGTBbo-34" vertex="1">
+          <mxGeometry y="100" width="270" height="160" as="geometry">
+            <mxRectangle y="50" width="270" height="30" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="ZA_Wk4F1g_JO69uGTBbo-39" value="It takes the &quot;User&quot; property which comes with all controller requests" style="text;strokeColor=none;fillColor=none;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=12;whiteSpace=wrap;" parent="9k-eRBXJ3-iOaLLvR6IK-3" vertex="1">
+          <mxGeometry y="26" width="270" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="ZA_Wk4F1g_JO69uGTBbo-38" value="Throws a BadHttpRequestException if it can&#39;t read it, which is specifically caught in most functions in order to return a bad request msg" style="text;strokeColor=none;fillColor=none;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=12;whiteSpace=wrap;" parent="9k-eRBXJ3-iOaLLvR6IK-3" vertex="1">
+          <mxGeometry y="66" width="270" height="54" as="geometry" />
+        </mxCell>
+        <mxCell id="9k-eRBXJ3-iOaLLvR6IK-20" value="Downside is we&#39;re passing the mail around via token, which isn&#39;t too secure" style="text;strokeColor=none;fillColor=none;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=12;whiteSpace=wrap;" parent="9k-eRBXJ3-iOaLLvR6IK-3" vertex="1">
+          <mxGeometry y="120" width="270" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="ZA_Wk4F1g_JO69uGTBbo-40" value="Dtos" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;align=center;fontSize=14;whiteSpace=wrap;fillColor=#f0a30a;fontColor=#000000;strokeColor=#BD7000;" parent="1" vertex="1">
+          <mxGeometry x="930" y="180" width="220" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="ZA_Wk4F1g_JO69uGTBbo-41" value="Very convenient way to define data we pass around in a more efficient and meaningful way" style="text;strokeColor=none;fillColor=none;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=12;whiteSpace=wrap;" parent="ZA_Wk4F1g_JO69uGTBbo-40" vertex="1">
+          <mxGeometry y="26" width="220" height="54" as="geometry" />
+        </mxCell>
+        <mxCell id="ZA_Wk4F1g_JO69uGTBbo-45" value="Usually hold a conversion method" style="text;strokeColor=none;fillColor=none;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=12;whiteSpace=wrap;" parent="ZA_Wk4F1g_JO69uGTBbo-40" vertex="1">
+          <mxGeometry y="80" width="220" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="ZA_Wk4F1g_JO69uGTBbo-47" value="CONTROLLERS" style="swimlane;whiteSpace=wrap;html=1;fillColor=#1ba1e2;strokeColor=#006EAF;fontColor=#ffffff;" parent="1" vertex="1">
+          <mxGeometry x="20" y="320" width="1130" height="1520" as="geometry">
+            <mxRectangle x="20" y="320" width="130" height="30" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="ZA_Wk4F1g_JO69uGTBbo-2" value="Intervention Controller" style="swimlane;whiteSpace=wrap;html=1;fillColor=#f0a30a;strokeColor=#BD7000;fontColor=#000000;" parent="ZA_Wk4F1g_JO69uGTBbo-47" vertex="1">
+          <mxGeometry x="20" y="430" width="1090" height="640" as="geometry" />
+        </mxCell>
+        <mxCell id="JrafcTy_BnnWQILE3Dvr-7" value="All" style="swimlane;whiteSpace=wrap;html=1;fillColor=#cce5ff;strokeColor=#36393d;" parent="ZA_Wk4F1g_JO69uGTBbo-2" vertex="1">
+          <mxGeometry x="20" y="40" width="520" height="560" as="geometry" />
+        </mxCell>
+        <mxCell id="9k-eRBXJ3-iOaLLvR6IK-11" value="FetchInterventionTypes (POST)" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;align=center;fontSize=14;fillColor=#ffe6cc;strokeColor=#d79b00;" parent="JrafcTy_BnnWQILE3Dvr-7" vertex="1">
+          <mxGeometry x="80" y="30" width="360" height="94" as="geometry">
+            <mxRectangle x="270" y="213" width="240" height="30" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="9k-eRBXJ3-iOaLLvR6IK-19" value="Needs JWT, after that just does what it says." style="text;strokeColor=none;fillColor=none;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=12;whiteSpace=wrap;" parent="9k-eRBXJ3-iOaLLvR6IK-11" vertex="1">
+          <mxGeometry y="26" width="360" height="24" as="geometry" />
+        </mxCell>
+        <mxCell id="9k-eRBXJ3-iOaLLvR6IK-39" value="Essentially provides ID-Name pairs you&#39;ll need to associate with recieved data for display" style="text;strokeColor=none;fillColor=none;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=12;whiteSpace=wrap;" parent="9k-eRBXJ3-iOaLLvR6IK-11" vertex="1">
+          <mxGeometry y="50" width="360" height="44" as="geometry" />
+        </mxCell>
+        <mxCell id="ZA_Wk4F1g_JO69uGTBbo-24" value="FetchUserInterventions (POST)" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;align=center;fontSize=14;fillColor=#ffe6cc;strokeColor=#d79b00;" parent="JrafcTy_BnnWQILE3Dvr-7" vertex="1">
+          <mxGeometry x="10" y="200" width="240" height="90" as="geometry">
+            <mxRectangle x="10" y="46" width="240" height="30" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="ZA_Wk4F1g_JO69uGTBbo-25" value="Only needs the JWT" style="text;strokeColor=none;fillColor=none;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=12;whiteSpace=wrap;" parent="ZA_Wk4F1g_JO69uGTBbo-24" vertex="1">
+          <mxGeometry y="26" width="240" height="24" as="geometry" />
+        </mxCell>
+        <mxCell id="ZA_Wk4F1g_JO69uGTBbo-26" value="Options for including active and inactive which are returned in that order" style="text;strokeColor=none;fillColor=none;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=12;whiteSpace=wrap;" parent="ZA_Wk4F1g_JO69uGTBbo-24" vertex="1">
+          <mxGeometry y="50" width="240" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="9k-eRBXJ3-iOaLLvR6IK-22" value="FetchCommanderInterventions&#xa;(POST)" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=40;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;align=center;fontSize=14;fillColor=#ffe6cc;strokeColor=#d79b00;" parent="JrafcTy_BnnWQILE3Dvr-7" vertex="1">
+          <mxGeometry x="270" y="160" width="237" height="170" as="geometry">
+            <mxRectangle x="10" y="46" width="240" height="30" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="9k-eRBXJ3-iOaLLvR6IK-24" value="Returns all interventions this firefighter created" style="text;strokeColor=none;fillColor=none;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=12;whiteSpace=wrap;" parent="9k-eRBXJ3-iOaLLvR6IK-22" vertex="1">
+          <mxGeometry y="40" width="237" height="34" as="geometry" />
+        </mxCell>
+        <mxCell id="JrafcTy_BnnWQILE3Dvr-15" value="Options for including active and/or inactive interventions which are returned in that order" style="text;strokeColor=none;fillColor=none;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=12;whiteSpace=wrap;" parent="9k-eRBXJ3-iOaLLvR6IK-22" vertex="1">
+          <mxGeometry y="74" width="237" height="46" as="geometry" />
+        </mxCell>
+        <mxCell id="9k-eRBXJ3-iOaLLvR6IK-23" value="Needs the JWT, does not check role (so if you&#39;re no longer a commander you can at least still see them)" style="text;strokeColor=none;fillColor=none;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=12;whiteSpace=wrap;" parent="9k-eRBXJ3-iOaLLvR6IK-22" vertex="1">
+          <mxGeometry y="120" width="237" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="ZA_Wk4F1g_JO69uGTBbo-29" value="FetchInterventionCommander&#xa;(POST)" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=40;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;align=center;fontSize=14;fillColor=#ffe6cc;strokeColor=#d79b00;" parent="JrafcTy_BnnWQILE3Dvr-7" vertex="1">
+          <mxGeometry x="10" y="370" width="500" height="140" as="geometry">
+            <mxRectangle x="260" y="36" width="260" height="50" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="ZA_Wk4F1g_JO69uGTBbo-30" value="Only needs the JWT and the intervention&#39;s ID" style="text;strokeColor=none;fillColor=none;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=12;whiteSpace=wrap;" parent="ZA_Wk4F1g_JO69uGTBbo-29" vertex="1">
+          <mxGeometry y="40" width="500" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="ZA_Wk4F1g_JO69uGTBbo-32" value="Returns the intervention commander as long as we actually ran an intervention under said commander" style="text;strokeColor=none;fillColor=none;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=12;whiteSpace=wrap;" parent="ZA_Wk4F1g_JO69uGTBbo-29" vertex="1">
+          <mxGeometry y="70" width="500" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="ZA_Wk4F1g_JO69uGTBbo-33" value="Only really exists for reducing the ~hypothetical~ data transfer load" style="text;strokeColor=none;fillColor=none;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=12;whiteSpace=wrap;" parent="ZA_Wk4F1g_JO69uGTBbo-29" vertex="1">
+          <mxGeometry y="110" width="500" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="JrafcTy_BnnWQILE3Dvr-8" value="Commander Only" style="swimlane;whiteSpace=wrap;html=1;fillColor=#ffcccc;strokeColor=#36393d;" parent="ZA_Wk4F1g_JO69uGTBbo-2" vertex="1">
+          <mxGeometry x="560" y="40" width="510" height="580" as="geometry" />
+        </mxCell>
+        <mxCell id="9k-eRBXJ3-iOaLLvR6IK-46" value="RemoveIntervention (POST)" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;align=center;fontSize=14;fillColor=#ffe6cc;strokeColor=#d79b00;" parent="JrafcTy_BnnWQILE3Dvr-8" vertex="1">
+          <mxGeometry x="264.25" y="50" width="225.75" height="260" as="geometry" />
+        </mxCell>
+        <mxCell id="9k-eRBXJ3-iOaLLvR6IK-47" value="Needs the JWT with a fire commander role attached to it" style="text;strokeColor=none;fillColor=none;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=12;whiteSpace=wrap;" parent="9k-eRBXJ3-iOaLLvR6IK-46" vertex="1">
+          <mxGeometry y="26" width="225.75" height="34" as="geometry" />
+        </mxCell>
+        <mxCell id="9k-eRBXJ3-iOaLLvR6IK-48" value="Expects interventionID int" style="text;strokeColor=none;fillColor=none;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=12;whiteSpace=wrap;" parent="9k-eRBXJ3-iOaLLvR6IK-46" vertex="1">
+          <mxGeometry y="60" width="225.75" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="c9Pe3JNuc1rxIcQ_pIss-8" value="If an intervention is deactivated, there is a 15 minute window for reactivation unless the intervention has no firefighters (not including the fire chief), in which case you cannot reactivate the intervention" style="text;strokeColor=none;fillColor=none;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=12;whiteSpace=wrap;" parent="9k-eRBXJ3-iOaLLvR6IK-46" vertex="1">
+          <mxGeometry y="80" width="225.75" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="JrafcTy_BnnWQILE3Dvr-16" value="The reactivation time period is up for debate, so please use the returned time remaining instead of hardcoding it" style="text;strokeColor=none;fillColor=none;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=12;whiteSpace=wrap;" parent="9k-eRBXJ3-iOaLLvR6IK-46" vertex="1">
+          <mxGeometry y="180" width="225.75" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="9k-eRBXJ3-iOaLLvR6IK-49" value="Returns status code &amp; MSG" style="text;strokeColor=none;fillColor=none;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=12;whiteSpace=wrap;" parent="9k-eRBXJ3-iOaLLvR6IK-46" vertex="1">
+          <mxGeometry y="230" width="225.75" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="9k-eRBXJ3-iOaLLvR6IK-7" value="CreateIntervention (POST)" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;align=center;fontSize=14;fillColor=#ffe6cc;strokeColor=#d79b00;" parent="JrafcTy_BnnWQILE3Dvr-8" vertex="1">
+          <mxGeometry x="20" y="40" width="225.75" height="250" as="geometry" />
+        </mxCell>
+        <mxCell id="9k-eRBXJ3-iOaLLvR6IK-8" value="Needs the JWT with a fire commander role attached to it" style="text;strokeColor=none;fillColor=none;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=12;whiteSpace=wrap;" parent="9k-eRBXJ3-iOaLLvR6IK-7" vertex="1">
+          <mxGeometry y="26" width="225.75" height="34" as="geometry" />
+        </mxCell>
+        <mxCell id="9k-eRBXJ3-iOaLLvR6IK-9" value="Expects Location and InterventionTypeId bundled into an object (look at the swagger UI for clarification), the rest is handled automatically" style="text;strokeColor=none;fillColor=none;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=12;whiteSpace=wrap;" parent="9k-eRBXJ3-iOaLLvR6IK-7" vertex="1">
+          <mxGeometry y="60" width="225.75" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="9k-eRBXJ3-iOaLLvR6IK-26" value="Returns status code, automatically adds fire chief to intervention" style="text;strokeColor=none;fillColor=none;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=12;whiteSpace=wrap;" parent="9k-eRBXJ3-iOaLLvR6IK-7" vertex="1">
+          <mxGeometry y="140" width="225.75" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="JrafcTy_BnnWQILE3Dvr-14" value="The intervention is then sent to a stagig array, and is only written into the DB once another firefighter accepts its invitation" style="text;strokeColor=none;fillColor=none;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=12;whiteSpace=wrap;" parent="9k-eRBXJ3-iOaLLvR6IK-7" vertex="1">
+          <mxGeometry y="180" width="225.75" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="VpXU_jCPeeglO9P4RSFn-1" value="FetchInterventionParticipants (POST)" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;align=center;fontSize=14;fillColor=#ffe6cc;strokeColor=#d79b00;" parent="JrafcTy_BnnWQILE3Dvr-8" vertex="1">
+          <mxGeometry x="34.25" y="460" width="441.5" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="VpXU_jCPeeglO9P4RSFn-2" value="Needs the JWT with a fire commander role attached to it" style="text;strokeColor=none;fillColor=none;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=12;whiteSpace=wrap;" parent="VpXU_jCPeeglO9P4RSFn-1" vertex="1">
+          <mxGeometry y="26" width="441.5" height="24" as="geometry" />
+        </mxCell>
+        <mxCell id="VpXU_jCPeeglO9P4RSFn-3" value="Expects interventionID integer" style="text;strokeColor=none;fillColor=none;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=12;whiteSpace=wrap;" parent="VpXU_jCPeeglO9P4RSFn-1" vertex="1">
+          <mxGeometry y="50" width="441.5" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="VpXU_jCPeeglO9P4RSFn-4" value="Returns list of firefighters or 400 bad ID error" style="text;strokeColor=none;fillColor=none;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=12;whiteSpace=wrap;" parent="VpXU_jCPeeglO9P4RSFn-1" vertex="1">
+          <mxGeometry y="80" width="441.5" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="57EXm1KyYKY2CuPnzqrw-1" value="RecoverIntervention (POST)" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;align=center;fontSize=14;fillColor=#ffe6cc;strokeColor=#d79b00;" parent="JrafcTy_BnnWQILE3Dvr-8" vertex="1">
+          <mxGeometry x="60" y="320" width="360" height="124" as="geometry" />
+        </mxCell>
+        <mxCell id="57EXm1KyYKY2CuPnzqrw-2" value="Needs the JWT with a fire commander role attached to it, as well as the  appropriate interventionID" style="text;strokeColor=none;fillColor=none;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=12;whiteSpace=wrap;" parent="57EXm1KyYKY2CuPnzqrw-1" vertex="1">
+          <mxGeometry y="26" width="360" height="34" as="geometry" />
+        </mxCell>
+        <mxCell id="ym7WGi3YbwKUyxd90jPi-1" value="The button for this would ideally be tucked away in some menu or in a corner" style="text;strokeColor=none;fillColor=none;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=12;whiteSpace=wrap;" parent="57EXm1KyYKY2CuPnzqrw-1" vertex="1">
+          <mxGeometry y="60" width="360" height="34" as="geometry" />
+        </mxCell>
+        <mxCell id="57EXm1KyYKY2CuPnzqrw-6" value="Returns status code &amp; MSG" style="text;strokeColor=none;fillColor=none;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=12;whiteSpace=wrap;" parent="57EXm1KyYKY2CuPnzqrw-1" vertex="1">
+          <mxGeometry y="94" width="360" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="ZA_Wk4F1g_JO69uGTBbo-3" value="User Controller" style="swimlane;whiteSpace=wrap;html=1;fillColor=#0050ef;strokeColor=#001DBC;fontColor=#ffffff;" parent="ZA_Wk4F1g_JO69uGTBbo-47" vertex="1">
+          <mxGeometry x="20" y="37" width="1090" height="363" as="geometry">
+            <mxRectangle x="20" y="37" width="130" height="30" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="ZA_Wk4F1g_JO69uGTBbo-6" value="LogIn (POST)" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;align=center;fontSize=14;fillColor=#dae8fc;strokeColor=#6c8ebf;" parent="ZA_Wk4F1g_JO69uGTBbo-3" vertex="1">
+          <mxGeometry x="70" y="53" width="230" height="130" as="geometry" />
+        </mxCell>
+        <mxCell id="ZA_Wk4F1g_JO69uGTBbo-7" value="Takes LoginDataDto (Username and Password)" style="text;strokeColor=none;fillColor=none;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=12;whiteSpace=wrap;" parent="ZA_Wk4F1g_JO69uGTBbo-6" vertex="1">
+          <mxGeometry y="26" width="230" height="44" as="geometry" />
+        </mxCell>
+        <mxCell id="ZA_Wk4F1g_JO69uGTBbo-10" value="Returns JWT with role,&#xa;username and the usual expiration stuff which can be used for timeouts" style="text;strokeColor=none;fillColor=none;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=12;whiteSpace=wrap;" parent="ZA_Wk4F1g_JO69uGTBbo-6" vertex="1">
+          <mxGeometry y="70" width="230" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="ZA_Wk4F1g_JO69uGTBbo-11" value="FetchPersonalData (POST)" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;align=center;fontSize=14;fillColor=#dae8fc;strokeColor=#6c8ebf;" parent="ZA_Wk4F1g_JO69uGTBbo-3" vertex="1">
+          <mxGeometry x="410" y="73" width="220" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="ZA_Wk4F1g_JO69uGTBbo-12" value="Only needs the JWT" style="text;strokeColor=none;fillColor=none;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=12;whiteSpace=wrap;" parent="ZA_Wk4F1g_JO69uGTBbo-11" vertex="1">
+          <mxGeometry y="26" width="220" height="24" as="geometry" />
+        </mxCell>
+        <mxCell id="ZA_Wk4F1g_JO69uGTBbo-22" value="If includeAdditionalData(optional) is sent as true, this will also provide our fire station with the corresponding fire chief" style="text;strokeColor=none;fillColor=none;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=12;whiteSpace=wrap;" parent="ZA_Wk4F1g_JO69uGTBbo-11" vertex="1">
+          <mxGeometry y="50" width="220" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="ZA_Wk4F1g_JO69uGTBbo-19" value="GenerateSaltAndHashForPassword" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;align=center;fontSize=14;fillColor=#dae8fc;strokeColor=#6c8ebf;" parent="ZA_Wk4F1g_JO69uGTBbo-3" vertex="1">
+          <mxGeometry x="670" y="233" width="320" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="ZA_Wk4F1g_JO69uGTBbo-20" value="Dev mode + localhost only, does what it says on the tin" style="text;strokeColor=none;fillColor=none;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=12;whiteSpace=wrap;" parent="ZA_Wk4F1g_JO69uGTBbo-19" vertex="1">
+          <mxGeometry y="26" width="320" height="24" as="geometry" />
+        </mxCell>
+        <mxCell id="ZA_Wk4F1g_JO69uGTBbo-23" value="(If we need an easier way to add people let me know)" style="text;strokeColor=none;fillColor=none;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=12;whiteSpace=wrap;" parent="ZA_Wk4F1g_JO69uGTBbo-19" vertex="1">
+          <mxGeometry y="50" width="320" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="9k-eRBXJ3-iOaLLvR6IK-15" value="FetchRanks (POST)" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;align=center;fontSize=14;fillColor=#dae8fc;strokeColor=#6c8ebf;" parent="ZA_Wk4F1g_JO69uGTBbo-3" vertex="1">
+          <mxGeometry x="670" y="53" width="370" height="94" as="geometry">
+            <mxRectangle x="350" y="236" width="170" height="30" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="9k-eRBXJ3-iOaLLvR6IK-18" value="Needs JWT, after that just does what it says." style="text;strokeColor=none;fillColor=none;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=12;whiteSpace=wrap;" parent="9k-eRBXJ3-iOaLLvR6IK-15" vertex="1">
+          <mxGeometry y="26" width="370" height="24" as="geometry" />
+        </mxCell>
+        <mxCell id="9k-eRBXJ3-iOaLLvR6IK-40" value="Essentially provides ID-Name pairs you&#39;ll need to associate with recieved data for display" style="text;strokeColor=none;fillColor=none;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=12;whiteSpace=wrap;" parent="9k-eRBXJ3-iOaLLvR6IK-15" vertex="1">
+          <mxGeometry y="50" width="370" height="44" as="geometry" />
+        </mxCell>
+        <mxCell id="9k-eRBXJ3-iOaLLvR6IK-33" value="FetchCommanderFirefighters (POST)" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;align=center;fontSize=14;fillColor=#dae8fc;strokeColor=#6c8ebf;" parent="ZA_Wk4F1g_JO69uGTBbo-3" vertex="1">
+          <mxGeometry x="60" y="233" width="470" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="9k-eRBXJ3-iOaLLvR6IK-34" value="Needs the JWT with a fire commander role attached to it" style="text;strokeColor=none;fillColor=none;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=12;whiteSpace=wrap;" parent="9k-eRBXJ3-iOaLLvR6IK-33" vertex="1">
+          <mxGeometry y="26" width="470" height="24" as="geometry" />
+        </mxCell>
+        <mxCell id="9k-eRBXJ3-iOaLLvR6IK-38" value="includeInactive optional parameter" style="text;strokeColor=none;fillColor=none;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=12;whiteSpace=wrap;" parent="9k-eRBXJ3-iOaLLvR6IK-33" vertex="1">
+          <mxGeometry y="50" width="470" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="9k-eRBXJ3-iOaLLvR6IK-37" value="Returns a list of all firefighters in the commander&#39;s department. Returns bad request if no department " style="text;strokeColor=none;fillColor=none;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=12;whiteSpace=wrap;" parent="9k-eRBXJ3-iOaLLvR6IK-33" vertex="1">
+          <mxGeometry y="70" width="470" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="WlSjz55uQlmIagT3Ye4h-1" value="Invitation Controller" style="swimlane;whiteSpace=wrap;html=1;fillColor=#60a917;fontColor=#ffffff;strokeColor=#2D7600;" parent="ZA_Wk4F1g_JO69uGTBbo-47" vertex="1">
+          <mxGeometry x="20" y="1090" width="1090" height="410" as="geometry" />
+        </mxCell>
+        <mxCell id="c9Pe3JNuc1rxIcQ_pIss-1" value="FetchUserInvitations&#xa;(POST)" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=40;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;align=center;fontSize=14;fillColor=#d5e8d4;strokeColor=#82b366;" parent="WlSjz55uQlmIagT3Ye4h-1" vertex="1">
+          <mxGeometry x="140" y="40" width="310" height="140" as="geometry">
+            <mxRectangle x="260" y="36" width="260" height="50" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="c9Pe3JNuc1rxIcQ_pIss-2" value="Only needs the JWT" style="text;strokeColor=none;fillColor=none;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=12;whiteSpace=wrap;" parent="c9Pe3JNuc1rxIcQ_pIss-1" vertex="1">
+          <mxGeometry y="40" width="310" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="c9Pe3JNuc1rxIcQ_pIss-7" value="Does what the name says" style="text;strokeColor=none;fillColor=none;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=12;whiteSpace=wrap;" parent="c9Pe3JNuc1rxIcQ_pIss-1" vertex="1">
+          <mxGeometry y="70" width="310" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="zb_7PwyahEYCz32flhl1-2" value="If the associated intervention is inactive, the invitation will not be returned (but it can still be accepted / denied)" style="text;strokeColor=none;fillColor=none;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=12;whiteSpace=wrap;" parent="c9Pe3JNuc1rxIcQ_pIss-1" vertex="1">
+          <mxGeometry y="100" width="310" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="JrafcTy_BnnWQILE3Dvr-9" value="DeclineInterventionInvitation&#xa;(POST)" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=40;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;align=center;fontSize=14;fillColor=#d5e8d4;strokeColor=#82b366;" parent="WlSjz55uQlmIagT3Ye4h-1" vertex="1">
+          <mxGeometry x="310" y="200" width="240" height="150" as="geometry">
+            <mxRectangle x="260" y="36" width="260" height="50" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="JrafcTy_BnnWQILE3Dvr-10" value="Only needs the JWT and InterventionID" style="text;strokeColor=none;fillColor=none;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=12;whiteSpace=wrap;" parent="JrafcTy_BnnWQILE3Dvr-9" vertex="1">
+          <mxGeometry y="40" width="240" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="JrafcTy_BnnWQILE3Dvr-11" value="Returns OK if ok and bad request / server error if something went wrong" style="text;strokeColor=none;fillColor=none;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=12;whiteSpace=wrap;" parent="JrafcTy_BnnWQILE3Dvr-9" vertex="1">
+          <mxGeometry y="70" width="240" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="JrafcTy_BnnWQILE3Dvr-13" value="User can be reinvited once it is declined" style="text;strokeColor=none;fillColor=none;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=12;whiteSpace=wrap;" parent="JrafcTy_BnnWQILE3Dvr-9" vertex="1">
+          <mxGeometry y="110" width="240" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="c9Pe3JNuc1rxIcQ_pIss-16" value="AcceptInterventionInvitation&#xa;(POST)" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=40;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;align=center;fontSize=14;fillColor=#d5e8d4;strokeColor=#82b366;" parent="WlSjz55uQlmIagT3Ye4h-1" vertex="1">
+          <mxGeometry x="30" y="200" width="220" height="170" as="geometry">
+            <mxRectangle x="260" y="36" width="260" height="50" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="c9Pe3JNuc1rxIcQ_pIss-17" value="Only needs the JWT and InterventionID" style="text;strokeColor=none;fillColor=none;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=12;whiteSpace=wrap;" parent="c9Pe3JNuc1rxIcQ_pIss-16" vertex="1">
+          <mxGeometry y="40" width="220" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="c9Pe3JNuc1rxIcQ_pIss-18" value="If this is the first accepted invitation it means that the intervention is now valid, so this will also add the commander to the intervention" style="text;strokeColor=none;fillColor=none;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=12;whiteSpace=wrap;" parent="c9Pe3JNuc1rxIcQ_pIss-16" vertex="1">
+          <mxGeometry y="70" width="220" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="iKKcjplxKpQX1ww9qm-A-1" value="Only needs the JWT and InvitationID" style="text;strokeColor=none;fillColor=none;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=12;whiteSpace=wrap;" parent="c9Pe3JNuc1rxIcQ_pIss-16" vertex="1">
+          <mxGeometry y="140" width="220" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="c9Pe3JNuc1rxIcQ_pIss-9" value="InviteFirefigtherToIntervention (POST)" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;align=center;fontSize=14;fillColor=#d5e8d4;strokeColor=#82b366;" parent="WlSjz55uQlmIagT3Ye4h-1" vertex="1">
+          <mxGeometry x="625" y="40" width="360" height="200" as="geometry" />
+        </mxCell>
+        <mxCell id="c9Pe3JNuc1rxIcQ_pIss-10" value="Needs the JWT with a fire commander role attached to it" style="text;strokeColor=none;fillColor=none;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=12;whiteSpace=wrap;" parent="c9Pe3JNuc1rxIcQ_pIss-9" vertex="1">
+          <mxGeometry y="26" width="360" height="24" as="geometry" />
+        </mxCell>
+        <mxCell id="c9Pe3JNuc1rxIcQ_pIss-11" value="Expects interventionID int for a currently active intervention and a firefighter GUID" style="text;strokeColor=none;fillColor=none;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=12;whiteSpace=wrap;" parent="c9Pe3JNuc1rxIcQ_pIss-9" vertex="1">
+          <mxGeometry y="50" width="360" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="c9Pe3JNuc1rxIcQ_pIss-21" value="If no response in 15 minutes automatically declines invitation (set in appsettings, if this (or the intervention recovery setting) needs a get let me know" style="text;strokeColor=none;fillColor=none;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=12;whiteSpace=wrap;" parent="c9Pe3JNuc1rxIcQ_pIss-9" vertex="1">
+          <mxGeometry y="90" width="360" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="c9Pe3JNuc1rxIcQ_pIss-12" value="Will return bad request error if a duplicate is detected" style="text;strokeColor=none;fillColor=none;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=12;whiteSpace=wrap;" parent="c9Pe3JNuc1rxIcQ_pIss-9" vertex="1">
+          <mxGeometry y="140" width="360" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="c9Pe3JNuc1rxIcQ_pIss-13" value="Returns status code &amp; MSG" style="text;strokeColor=none;fillColor=none;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=12;whiteSpace=wrap;" parent="c9Pe3JNuc1rxIcQ_pIss-9" vertex="1">
+          <mxGeometry y="170" width="360" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="H5y3Hing5D8os1nZShhm-1" value="FetchCommanderInvitations&#xa;(POST)" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=40;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;align=center;fontSize=14;fillColor=#d5e8d4;strokeColor=#82b366;" parent="WlSjz55uQlmIagT3Ye4h-1" vertex="1">
+          <mxGeometry x="695" y="260" width="220" height="120" as="geometry">
+            <mxRectangle x="260" y="36" width="260" height="50" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="H5y3Hing5D8os1nZShhm-2" value="Only needs the JWT with a commander role" style="text;strokeColor=none;fillColor=none;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=12;whiteSpace=wrap;" parent="H5y3Hing5D8os1nZShhm-1" vertex="1">
+          <mxGeometry y="40" width="220" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="H5y3Hing5D8os1nZShhm-3" value="Returns a list of invitations created by this commander" style="text;strokeColor=none;fillColor=none;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=12;whiteSpace=wrap;" parent="H5y3Hing5D8os1nZShhm-1" vertex="1">
+          <mxGeometry y="80" width="220" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="9k-eRBXJ3-iOaLLvR6IK-27" value="Returned Status Codes" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;align=center;fontSize=14;whiteSpace=wrap;fillColor=#e1d5e7;strokeColor=#9673a6;" parent="1" vertex="1">
+          <mxGeometry x="660" y="50" width="230" height="200" as="geometry" />
+        </mxCell>
+        <mxCell id="9k-eRBXJ3-iOaLLvR6IK-28" value="200 when OK" style="text;strokeColor=none;fillColor=none;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=12;whiteSpace=wrap;" parent="9k-eRBXJ3-iOaLLvR6IK-27" vertex="1">
+          <mxGeometry y="26" width="230" height="24" as="geometry" />
+        </mxCell>
+        <mxCell id="zb_7PwyahEYCz32flhl1-3" value="204 when OK, but without a message (This is only sent if a message would usually be provided, otherwise it&#39;s just a 200 with no message)" style="text;strokeColor=none;fillColor=none;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=12;whiteSpace=wrap;" parent="9k-eRBXJ3-iOaLLvR6IK-27" vertex="1">
+          <mxGeometry y="50" width="230" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="9k-eRBXJ3-iOaLLvR6IK-32" value="400 when request is filled out wrong" style="text;strokeColor=none;fillColor=none;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=12;whiteSpace=wrap;" parent="9k-eRBXJ3-iOaLLvR6IK-27" vertex="1">
+          <mxGeometry y="120" width="230" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="9k-eRBXJ3-iOaLLvR6IK-29" value="401 when no token" style="text;strokeColor=none;fillColor=none;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=12;whiteSpace=wrap;" parent="9k-eRBXJ3-iOaLLvR6IK-27" vertex="1">
+          <mxGeometry y="140" width="230" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="9k-eRBXJ3-iOaLLvR6IK-30" value="403 when yes token but no correct role" style="text;strokeColor=none;fillColor=none;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=12;whiteSpace=wrap;" parent="9k-eRBXJ3-iOaLLvR6IK-27" vertex="1">
+          <mxGeometry y="160" width="230" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="9k-eRBXJ3-iOaLLvR6IK-31" value="500 when server explodes" style="text;strokeColor=none;fillColor=none;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=12;whiteSpace=wrap;" parent="9k-eRBXJ3-iOaLLvR6IK-27" vertex="1">
+          <mxGeometry y="180" width="230" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="zb_7PwyahEYCz32flhl1-139" value="DB&lt;br&gt;(SQL)" style="shape=datastore;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="1020" y="50" width="60" height="80" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
