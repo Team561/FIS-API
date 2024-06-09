@@ -27,7 +27,7 @@ jobs:
 
     env:
       working-directory: ./API/FIS-API
-      project-working-directory: ./API/FIS-API/FIS-API
+      project-path: API/FIS-API/FIS-API/FIS-API.csproj
       dotnet-version: 8.0.x
       dotnet-framework: net8.0
     defaults:
@@ -50,7 +50,7 @@ jobs:
         tag=$(git describe --tags --abbrev=0)
         release_name="App-$tag-${{ matrix.target }}"
         
-        dotnet publish ${{ env.project-working-directory }}/FIS-API.csproj --framework ${{ env.dotnet-framework }} --runtime "${{ matrix.target }}" -p:PublishSingleFile=true --self-contained true -c Release -o "$release_name"
+        dotnet publish ${{ env.project-path }} --framework ${{ env.dotnet-framework }} --runtime "${{ matrix.target }}" -p:PublishSingleFile=true --self-contained true -c Release -o "$release_name"
 
         if [ "${{ matrix.target }}" == "win-x64" ]; then
           7z a -tzip "${release_name}.zip" "./${release_name}/*"
