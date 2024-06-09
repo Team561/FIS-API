@@ -62,6 +62,6 @@ jobs:
     - name: Publish
       uses: softprops/action-gh-release@v1
       with:
-        files: ${{ env.Release_name }}.zip
+        files: API/FIS-API/${{ env.Release_name }}.zip
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
