@@ -7,65 +7,65 @@ namespace FIS_API.Logic
 {
 	public static class InvitationHandler
 	{
-		private static volatile List<KeyValuePair<Guid, Invitations>> commanderData = new();
+		private static volatile List<Invitations> commanderData = new();
 
 		/// <summary>
 		/// Returns false if invitation already exists
 		/// </summary>
-		public static bool AddInvitation(Guid commanderID, InvitationDto invitation, IConfiguration config)
+		public static bool LockAddInvitation(Guid commanderID, InvitationDto invitation, IConfiguration config)
 		{
 			lock (commanderData)
 			{
-				var target = commanderData.FirstOrDefault(x => x.Key == commanderID);
+				var target = commanderData.FirstOrDefault(x => x.linkedCommanderID == commanderID);
 
-				if (target.Value == null)
+				if (target == null)
 				{
-					commanderData.Add(new KeyValuePair<Guid, Invitations>(commanderID, new Invitations(commanderID, config)));
+					commanderData.Add(new Invitations(commanderID, config));
 					target = commanderData.Last();
 				}
 
-				return target.Value.Add(invitation, config);
+				return target.Add(invitation, config);
 			}
 		}
 
-		public static bool RemoveInvitation(Guid commanderID, InvitationDto dto)
+		public static bool LockRemoveInvitation(Guid commanderID, InvitationDto dto)
 		{
 			lock (commanderData)
 			{
-				var target = commanderData.FirstOrDefault(x => x.Key == commanderID);
+				var target = commanderData.FirstOrDefault(x => x.linkedCommanderID == commanderID);
 
-				if (target.Value == null)
+				if (target == null)
 					return false;
 
-				return target.Value.Remove(dto);
+				return target.Remove(dto);
 			}
 		}
 
-		public static IEnumerable<int> GetFirefighterInvitations(Guid commanderID, Guid firefighterID)
+		public static IEnumerable<int> LockGetFirefighterInvitations(Guid commanderID, Guid firefighterID)
 		{
 			lock (commanderData)
 			{
-				var cmdr = commanderData.FirstOrDefault(x => x.Key == commanderID);
-				if (cmdr.Value == null)
+				var target = commanderData.FirstOrDefault(x => x.linkedCommanderID == commanderID);
+				if (target == null)
 				{
 					return null!;
 				}
 
-				return cmdr.Value.getAllFromFirefighterID(firefighterID);
+				return target.getAllFromFirefighterID(firefighterID);
 			}
 		}
 
-		public static IEnumerable<InvitationDto> GetSentInvitations(Guid commanderID)
+		public static IEnumerable<InvitationDto> LockGetCommanderInvitations(Guid commanderID)
 		{
 			lock (commanderData)
 			{
-				var cmdr = commanderData.FirstOrDefault(x => x.Key == commanderID);
-				if (cmdr.Value == null)
+				var target = commanderData.FirstOrDefault(x => x.linkedCommanderID == commanderID);
+				if (target == null)
 				{
 					return null!;
 				}
 
-				return InvitationDto.getDtoEnumerableFromObjectEnumerable(cmdr.Value.invitations);
+				return InvitationDto.getDtoEnumerableFromObjectEnumerable(target.invitations);
 ;
 			}
 		}
@@ -73,41 +73,45 @@ namespace FIS_API.Logic
 		public class Invitations
 		{
 			public volatile LinkedList<Invitation> invitations = new();
-			private readonly Guid key;
+			public readonly Guid linkedCommanderID;
 
 			private static volatile System.Threading.Timer? tickTock;
 
-			public Invitations(Guid _key, IConfiguration config)
+			public Invitations(Guid _commanderID, IConfiguration config)
 			{
-				key = _key;
+				linkedCommanderID = _commanderID;
 
 				var targetTime = DateTime.Now;
 				targetTime = targetTime.AddMinutes(double.Parse(config["Time:InterventionRecoveryTimeoutMinutes"]));
 
-				tickTock = new System.Threading.Timer(onTimedEvent, this, (long)(targetTime - DateTime.Now).TotalMilliseconds, (long)(targetTime - DateTime.Now).TotalMilliseconds);
+				tickTock = new System.Threading.Timer(LockOnTimedEvent, this, (long)(targetTime - DateTime.Now).TotalMilliseconds, (long)(targetTime - DateTime.Now).TotalMilliseconds);
 			}
 
-			private static void onTimedEvent(object? state)
+			private static void LockOnTimedEvent(object? state)
 			{
-				var invitations = (Invitations)state;
-
-				var node = invitations.invitations.First;
-
-				while (node != null)
+				// usually we're safe as everything goes through the handler first, but now we gotta lock this one properly
+				lock (InvitationHandler.commanderData)
 				{
-					var next = node.Next;
+					var invitations = (Invitations)state;
 
-					var comparison = DateTime.Compare(node.Value.expirationTime, DateTime.Now);
+					var node = invitations.invitations.First;
 
-					if (comparison > 0)
-						invitations.invitations.Remove(node);
-					else
-						break; // these node values are always ordered
+					while (node != null)
+					{
+						var next = node.Next;
 
-					node = next;
+						var comparison = DateTime.Compare(node.Value.expirationTime, DateTime.Now);
+
+						if (comparison < 0)
+							invitations.invitations.Remove(node);
+						else
+							break; // these node values are always ordered
+
+						node = next;
+					}
+
+					invitations.SelfDestructIfEmpty();
 				}
-
-				invitations.RemoveLogic();
 			}
 
 			public IEnumerable<int> getAllFromFirefighterID(Guid firefighterID)
@@ -129,12 +133,11 @@ namespace FIS_API.Logic
 				var targetTime = DateTime.Now;
 				targetTime = targetTime.AddMinutes(double.Parse(config["Time:InterventionRecoveryTimeoutMinutes"]));
 
-				bool result = false;
 				foreach (Invitation target in invitations)
-					if (target.firefighterID == dto.firefighterID && target.interventionID == dto.interventionID)
+					if (target.firefighterID == dto.FirefighterID && target.interventionID == dto.InterventionID)
 						return false;
 
-				invitations.AddLast(new Invitation() { firefighterID = dto.firefighterID, interventionID = dto.interventionID, expirationTime = targetTime });
+				invitations.AddLast(new Invitation() { firefighterID = dto.FirefighterID, interventionID = dto.InterventionID, expirationTime = targetTime });
 				return true;
 			}
 
@@ -147,7 +150,7 @@ namespace FIS_API.Logic
 				{
 					var next = node.Next;
 
-					if (node.Value.interventionID == dto.interventionID && node.Value.firefighterID == dto.firefighterID)
+					if (node.Value.interventionID == dto.InterventionID && node.Value.firefighterID == dto.FirefighterID)
 					{
 						invitations.Remove(node);
 						result = true;
@@ -157,12 +160,12 @@ namespace FIS_API.Logic
 					node = next;
 				}
 
-				RemoveLogic();
+				SelfDestructIfEmpty();
 
 				return result;
 			}
 
-			private void RemoveLogic()
+			private void SelfDestructIfEmpty()
 			{
 
 				if (invitations.Count <= 0)
@@ -172,7 +175,7 @@ namespace FIS_API.Logic
 					int index = 0;
 					foreach (var kvp in InvitationHandler.commanderData)
 					{
-						if (kvp.Key == key)
+						if (kvp.linkedCommanderID == linkedCommanderID)
 							break;
 						index++;
 					}

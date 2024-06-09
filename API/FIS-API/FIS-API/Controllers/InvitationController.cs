@@ -25,7 +25,7 @@ namespace FIS_API.Controllers
 
 		[HttpPost("[action]")]
 		[Authorize]
-		public ActionResult FetchUserInvitations()
+		public ActionResult<IEnumerable<InvitationDto>> FetchUserInvitations()
 		{
 			try
 			{
@@ -33,13 +33,14 @@ namespace FIS_API.Controllers
 
 				var userData = _context.Logins.Include(x => x.User).ThenInclude(x => x.Fd).ThenInclude(x => x.Cmdr).FirstOrDefault(x => x.Email == email);
 
-				IEnumerable<int> ids = InvitationHandler.GetFirefighterInvitations(userData.User.Fd.Cmdr.IdFf, userData.UserGuid);
+				IEnumerable<int> ids = InvitationHandler.LockGetFirefighterInvitations(userData.User.Fd.Cmdr.IdFf, userData.UserGuid);
 
 				var interventions = _context.Interventions.Where(x => ids.Contains(x.IdInt)).ToList();
 
 				List<InterventionOutDto> result = new();
 				foreach (var intervention in interventions)
-					result.Add(InterventionOutDto.GetDtoFromIntervention(intervention));
+					if (intervention.Active) // Do not display invitations tied to inactive interventions to firefighters, instead simply let them die on their own (in case the intervention gets recovered)
+						result.Add(InterventionOutDto.GetDtoFromIntervention(intervention));
 
 				return Ok(result);
 			}
@@ -64,7 +65,7 @@ namespace FIS_API.Controllers
 				var userData = _context.Logins.Include(x => x.User).ThenInclude(x => x.Fd).ThenInclude(x => x.Cmdr).ThenInclude(x => x.Interventions)
 					.Include(x => x.User).ThenInclude(x => x.Fd).ThenInclude(x => x.Cmdr).ThenInclude(x => x.FirefighterInterventions).FirstOrDefault(x => x.Email == email);
 
-				var result = InvitationHandler.RemoveInvitation(userData.User.Fd.Cmdr.IdFf, new InvitationDto() { firefighterID = userData.UserGuid, interventionID = interventionID });
+				var result = InvitationHandler.LockRemoveInvitation(userData.User.Fd.Cmdr.IdFf, new InvitationDto() { FirefighterID = userData.UserGuid, InterventionID = interventionID });
 
 				if (!result)
 					return BadRequest("The invitation does not exist");
@@ -119,7 +120,7 @@ namespace FIS_API.Controllers
 				var userData = _context.Logins.Include(x => x.User).ThenInclude(x => x.Fd).ThenInclude(x => x.Cmdr).ThenInclude(x => x.Interventions)
 					.Include(x => x.User).ThenInclude(x => x.Fd).ThenInclude(x => x.Cmdr).ThenInclude(x => x.FirefighterInterventions).FirstOrDefault(x => x.Email == email);
 
-				var result = InvitationHandler.RemoveInvitation(userData.User.Fd.Cmdr.IdFf, new InvitationDto() { firefighterID = userData.UserGuid, interventionID = interventionID });
+				var result = InvitationHandler.LockRemoveInvitation(userData.User.Fd.Cmdr.IdFf, new InvitationDto() { FirefighterID = userData.UserGuid, InterventionID = interventionID });
 
 				if (!result)
 					return BadRequest("The invitation does not exist");
@@ -144,18 +145,21 @@ namespace FIS_API.Controllers
 			{
 				string email = JwtTokenProvider.ReadMailFromToken(User);
 
-				var userData = _context.Logins.Include(x => x.User).ThenInclude(x => x.Fd).ThenInclude(x => x.Firefighters)
-					.Include(x => x.User).ThenInclude(x => x.Interventions).FirstOrDefault(x => x.Email == email);
+				var chiefData = _context.Logins.Include(x => x.User).ThenInclude(x => x.Interventions).FirstOrDefault(x => x.Email == email);
 
-				if (userData.UserGuid == firefighterID)
+				if (chiefData.UserGuid == firefighterID)
 					return BadRequest("You cannot invite yourself to an intervention");
 
-				var user = userData.User.Fd.Firefighters.FirstOrDefault(x => x.IdFf == firefighterID);
+				var userData = _context.Firefighters.Include(x => x.FirefighterInterventions).FirstOrDefault(x => x.IdFf == firefighterID);//chiefData.User.Fd.Firefighters.FirstOrDefault(x => x.IdFf == firefighterID);
 
-				if (user == null)
+				if (userData == null)
 					return BadRequest("This firefighter is not under your command or does not exist");
 
-				var intervention = userData.User.Interventions.FirstOrDefault(x => x.IdInt == interventionID);
+				foreach (var FFIntervention in userData.FirefighterInterventions)
+					if (FFIntervention.IntId == interventionID)
+						return BadRequest("User already asigned to intervention");
+
+				var intervention = chiefData.User.Interventions.FirstOrDefault(x => x.IdInt == interventionID);
 
 				if (intervention == null)
 					return BadRequest("The intervention does not exist");
@@ -163,12 +167,12 @@ namespace FIS_API.Controllers
 				if (intervention.Active == false)
 					return BadRequest("The intervention is not active");
 
-				var result = InvitationHandler.AddInvitation(userData.UserGuid, new InvitationDto() { firefighterID = userData.UserGuid, interventionID = interventionID }, _configuration);
+				var result = InvitationHandler.LockAddInvitation(chiefData.UserGuid, new InvitationDto() { FirefighterID = firefighterID, InterventionID = interventionID }, _configuration);
 
 				if (!result)
 					return BadRequest("The invitation already exists");
 
-				return Ok();
+				return Ok("Invitation sent successfully");
 			}
 			catch (BadHttpRequestException ex)
 			{
@@ -182,7 +186,7 @@ namespace FIS_API.Controllers
 
 		[HttpPost("[action]")]
 		[Authorize(Roles = "Fire Fighter Commander")]
-		public ActionResult FetchCommanderInvitations()
+		public ActionResult<IEnumerable<InvitationDto>> FetchCommanderInvitations()
 		{
 			try
 			{
@@ -190,7 +194,9 @@ namespace FIS_API.Controllers
 
 				var userData = _context.Logins.FirstOrDefault(x => x.Email == email);
 
-				return Ok(InvitationHandler.GetSentInvitations(userData.UserGuid));
+				var result = InvitationHandler.LockGetCommanderInvitations(userData.UserGuid);
+
+				return Ok(result);
 			}
 			catch (BadHttpRequestException ex)
 			{

@@ -4,15 +4,15 @@ namespace FIS_API.Dtos
 {
 	public class InvitationDto
 	{
-		public Guid firefighterID;
-		public int interventionID;
+		public Guid FirefighterID { get; set; }
+		public int InterventionID { get; set; }
 
 		public static InvitationDto getDtoFromObject(Invitation invitation)
 		{
 			InvitationDto dto = new();
 
-			dto.firefighterID = invitation.firefighterID;
-			dto.interventionID = invitation.interventionID;
+			dto.FirefighterID = invitation.firefighterID;
+			dto.InterventionID = invitation.interventionID;
 
 			return dto;
 		}

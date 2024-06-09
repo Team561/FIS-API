@@ -12,7 +12,7 @@ namespace FIS_API.Logic
 		private static volatile LinkedList<KeyValuePair<int, DateTime>> recoveryData = new();
         private static volatile System.Threading.Timer? tickTock;
 
-        public static void addRecoverableIntervention(int interventionID, IConfiguration config)
+        public static void LockAddRecoverableIntervention(int interventionID, IConfiguration config)
         {
             DateTime targetTime = DateTime.Now;
 
@@ -29,10 +29,10 @@ namespace FIS_API.Logic
 				queuedLock.Exit();
 			}
 
-			checkTimer();
+			LockCheckTimer();
 		}
 
-        public static int checkRecoverableInterventionTime(int interventionID)
+        public static int LockCheckRecoverableInterventionTime(int interventionID)
         {
 			try
 			{
@@ -49,7 +49,7 @@ namespace FIS_API.Logic
 			}
 		}
 
-		public static void interventionRecovered(int interventionID)
+		public static void LockInterventionRecovered(int interventionID)
 		{
 			try
 			{
@@ -75,7 +75,7 @@ namespace FIS_API.Logic
 			}
 		}
 
-		private static void onTimedEvent(object? state)
+		private static void LockOnTimedEvent(object? state)
 		{
 			try
 			{
@@ -92,7 +92,7 @@ namespace FIS_API.Logic
 
 					var comparison = DateTime.Compare(node.Value.Value, DateTime.Now);
 
-					if (comparison > 0)
+					if (comparison < 0)
 						recoveryData.Remove(node);
 					else
 						break; // these node values are always ordered
@@ -105,10 +105,10 @@ namespace FIS_API.Logic
 				queuedLock.Exit();
 			}
 
-			checkTimer();
+			LockCheckTimer();
 		}
 
-		private static void checkTimer()
+		private static void LockCheckTimer()
 		{
 			try
 			{
@@ -122,7 +122,7 @@ namespace FIS_API.Logic
 					if (duration < 1)
 						duration = 1;
 
-					tickTock = new System.Threading.Timer(onTimedEvent, recoveryData.First, duration, Timeout.Infinite);
+					tickTock = new System.Threading.Timer(LockOnTimedEvent, recoveryData.First, duration, Timeout.Infinite);
 				}
 			}
 			finally

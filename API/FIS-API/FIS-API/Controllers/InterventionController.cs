@@ -281,7 +281,7 @@ namespace FIS_API.Controllers
 				intervention.Active = false;
 				_context.SaveChanges();
 
-				InterventionRecoveryHandler.addRecoverableIntervention(interventionID, _configuration);
+				InterventionRecoveryHandler.LockAddRecoverableIntervention(interventionID, _configuration);
 
 				return Ok($"Intervention state successfully changed");
 
@@ -314,7 +314,7 @@ namespace FIS_API.Controllers
 				if (intervention.Active == true)
 					return BadRequest("Intervention already active");
 
-				int recTime = InterventionRecoveryHandler.checkRecoverableInterventionTime(interventionID);
+				int recTime = InterventionRecoveryHandler.LockCheckRecoverableInterventionTime(interventionID);
 
 				if (recTime <= 0)
 					return BadRequest("Intervention not recoverable");
@@ -322,7 +322,7 @@ namespace FIS_API.Controllers
 				intervention.Active = true;
 				_context.SaveChanges();
 
-				InterventionRecoveryHandler.interventionRecovered(interventionID);
+				InterventionRecoveryHandler.LockInterventionRecovered(interventionID);
 
 				return Ok($"Intervention state successfully changed");
 			}
