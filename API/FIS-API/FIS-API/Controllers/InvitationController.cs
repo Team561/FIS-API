@@ -56,7 +56,7 @@ namespace FIS_API.Controllers
 
 		[HttpPost("[action]")]
 		[Authorize]
-		public ActionResult AcceptIntervnetionInvitation(int interventionID)
+		public ActionResult AcceptInterventionInvitation(int interventionID)
 		{
 			try
 			{
@@ -145,12 +145,13 @@ namespace FIS_API.Controllers
 			{
 				string email = JwtTokenProvider.ReadMailFromToken(User);
 
-				var chiefData = _context.Logins.Include(x => x.User).ThenInclude(x => x.Interventions).FirstOrDefault(x => x.Email == email);
+				var chiefData = _context.Logins.Include(x => x.User).ThenInclude(x => x.Interventions)
+					.Include(x => x.User).ThenInclude(x => x.Fd).ThenInclude(x => x.Firefighters).ThenInclude(x => x.FirefighterInterventions).FirstOrDefault(x => x.Email == email);
 
 				if (chiefData.UserGuid == firefighterID)
 					return BadRequest("You cannot invite yourself to an intervention");
 
-				var userData = _context.Firefighters.Include(x => x.FirefighterInterventions).FirstOrDefault(x => x.IdFf == firefighterID);//chiefData.User.Fd.Firefighters.FirstOrDefault(x => x.IdFf == firefighterID);
+				var userData = chiefData.User.Fd.Firefighters.FirstOrDefault(x => x.IdFf == firefighterID);
 
 				if (userData == null)
 					return BadRequest("This firefighter is not under your command or does not exist");

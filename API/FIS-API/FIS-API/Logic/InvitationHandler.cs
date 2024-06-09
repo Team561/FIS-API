@@ -20,8 +20,9 @@ namespace FIS_API.Logic
 
 				if (target == null)
 				{
-					commanderData.Add(new Invitations(commanderID, config));
-					target = commanderData.Last();
+					commanderData.Add(new Invitations(commanderID, invitation, config));
+
+					return true;
 				}
 
 				return target.Add(invitation, config);
@@ -77,14 +78,23 @@ namespace FIS_API.Logic
 
 			private static volatile System.Threading.Timer? tickTock;
 
-			public Invitations(Guid _commanderID, IConfiguration config)
+			public Invitations(Guid _commanderID, InvitationDto dto, IConfiguration config)
 			{
 				linkedCommanderID = _commanderID;
 
-				var targetTime = DateTime.Now;
-				targetTime = targetTime.AddMinutes(double.Parse(config["Time:InterventionRecoveryTimeoutMinutes"]));
+				Add(dto, config);
 
-				tickTock = new System.Threading.Timer(LockOnTimedEvent, this, (long)(targetTime - DateTime.Now).TotalMilliseconds, (long)(targetTime - DateTime.Now).TotalMilliseconds);
+				checkTimer();
+			}
+
+			private void checkTimer()
+			{
+				if (invitations.First == null || tickTock != null)
+					return;
+
+				var targetTime = invitations.First.Value.expirationTime;
+
+				tickTock = new System.Threading.Timer(LockOnTimedEvent, this, (long)(targetTime - DateTime.Now).TotalMilliseconds + 10000, Timeout.Infinite);
 			}
 
 			private static void LockOnTimedEvent(object? state)
@@ -92,6 +102,9 @@ namespace FIS_API.Logic
 				// usually we're safe as everything goes through the handler first, but now we gotta lock this one properly
 				lock (InvitationHandler.commanderData)
 				{
+					tickTock.Dispose();
+					tickTock = null;
+
 					var invitations = (Invitations)state;
 
 					var node = invitations.invitations.First;
@@ -110,6 +123,7 @@ namespace FIS_API.Logic
 						node = next;
 					}
 
+					invitations.checkTimer();
 					invitations.SelfDestructIfEmpty();
 				}
 			}
@@ -167,10 +181,10 @@ namespace FIS_API.Logic
 
 			private void SelfDestructIfEmpty()
 			{
-
 				if (invitations.Count <= 0)
 				{
-					tickTock.Dispose();
+					if (tickTock != null)
+						tickTock.Dispose();
 
 					int index = 0;
 					foreach (var kvp in InvitationHandler.commanderData)
