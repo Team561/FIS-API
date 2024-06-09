@@ -44,6 +44,7 @@ jobs:
       run: |
         tag=$(git describe --tags --abbrev=0)
         release_name="FIS-$tag-${{ matrix.target }}"
+        echo "Release_name=$release_name" >> $GITHUB_ENV
         pwd
         ls
         dotnet publish ${{ env.project-path }} --framework ${{ env.dotnet-framework }} --runtime "${{ matrix.target }}" -p:PublishSingleFile=true --self-contained true -c Release -o "$release_name"
@@ -59,6 +60,6 @@ jobs:
     - name: Publish
       uses: softprops/action-gh-release@v1
       with:
-        files: ${release_name}.zip
+        files: ${{ env.Release_name }}.zip
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
