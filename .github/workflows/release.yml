@@ -20,7 +20,7 @@ jobs:
 
     env:
       working-directory: ./API/FIS-API
-      project-path: API/FIS-API/FIS-API/FIS-API.csproj
+      project-path: FIS-API/FIS-API.csproj
       dotnet-version: 8.0.x
       dotnet-framework: net8.0
     defaults:
