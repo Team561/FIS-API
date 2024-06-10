@@ -72,8 +72,5 @@ jobs:
       with:
         files:|
             API/FIS-API/${{ env.Release_name }}${{ env.File_ext }}
-        files: |
-            Release.txt
-            LICENSE
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
