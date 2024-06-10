@@ -119,8 +119,8 @@ namespace FIS_API.Logic
 					var targetDate = recoveryData.First.Value.Value;
 
 					var duration = (long)(targetDate - DateTime.Now).TotalMilliseconds + 10000;
-					if (duration < 1)
-						duration = 1;
+					if (duration < 10000)
+						duration = 10000;
 
 					tickTock = new System.Threading.Timer(LockOnTimedEvent, recoveryData.First, duration, Timeout.Infinite);
 				}

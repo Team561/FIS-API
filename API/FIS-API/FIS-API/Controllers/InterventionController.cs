@@ -153,6 +153,10 @@ namespace FIS_API.Controllers
 
 				var targetChief = _context.Logins.Include(x => x.User).FirstOrDefault(x => x.Email == email).User.IdFf;
 
+				var interventionType = _context.InterventionTypes.FirstOrDefault(x => x.IdType == interventionData.InterventionTypeId);
+				if (interventionType == null)
+					return BadRequest("Invalid intervention type (how'd that happen?)");
+
 				Intervention newIntervention = new()
 				{
 					CmdrId = targetChief,
