@@ -92,9 +92,11 @@ namespace FIS_API.Logic
 				if (invitations.First == null || tickTock != null)
 					return;
 
-				var targetTime = invitations.First.Value.expirationTime;
+				var targetTime = (long)(invitations.First.Value.expirationTime - DateTime.Now).TotalMilliseconds + 10000;
+				if (targetTime <= 10000)
+					targetTime = 10000;
 
-				tickTock = new System.Threading.Timer(LockOnTimedEvent, this, (long)(targetTime - DateTime.Now).TotalMilliseconds + 10000, Timeout.Infinite);
+				tickTock = new System.Threading.Timer(LockOnTimedEvent, this, targetTime, Timeout.Infinite);
 			}
 
 			private static void LockOnTimedEvent(object? state)
