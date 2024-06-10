@@ -1,0 +1,67 @@
+# Auto publish .exe
+
+name: .NET Publish
+
+on:
+  release:
+    types: [published]
+    
+permissions: write-all
+
+jobs:
+  release:
+    name: Release
+    strategy:
+      matrix:
+        kind: ['windows']
+        include:
+          - kind: windows
+            os: windows-latest
+            target: win-x64
+    runs-on: ${{ matrix.os }}
+
+    env:
+      working-directory: ./API/FIS-API
+      project-path: FIS-API/FIS-API.csproj
+      dotnet-version: 8.0.x
+      dotnet-framework: net8.0
+    defaults:
+      run:
+        working-directory: ${{ env.working-directory }}
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: ${{ env.dotnet-version }}
+        
+    - name: Restore dependencies
+      run: dotnet restore
+      
+    - name: Build
+      shell: bash
+      run: |
+        tag=$(git describe --tags --abbrev=0)
+        release_name="FIS-$tag-${{ matrix.target }}"
+        echo "Release_name=$release_name" >> $GITHUB_ENV
+        pwd
+        ls
+        dotnet publish ${{ env.project-path }} --framework ${{ env.dotnet-framework }} --runtime "${{ matrix.target }}" -p:PublishSingleFile=true -p:PublishTrimmed=true -p:IncludeNativeLibrariesForSelfExtract=true -p:CopyOutputSymbolsToPublishDirectory=false --self-contained=true -c Release -o "$release_name"
+
+        if [ "${{ matrix.target }}" == "win-x64" ]; then
+          7z a -tzip "${release_name}.zip" "./${release_name}/*"
+        else
+          tar czvf "${release_name}.tar.gz" "$release_name"
+        fi
+        
+        rm -r "$release_name"
+        pwd
+        ls
+        
+    - name: Publish
+      uses: softprops/action-gh-release@v1
+      with:
+        files: API/FIS-API/${{ env.Release_name }}.zip
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
