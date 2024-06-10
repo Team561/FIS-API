@@ -13,11 +13,17 @@ jobs:
     name: Release
     strategy:
       matrix:
-        kind: ['windows']
+        kind: ['windows','linux','macOS']
         include:
           - kind: windows
             os: windows-latest
             target: win-x64
+          - kind: macOS
+            os: macos-latest
+            target: osx-x64
+          - kind: linux
+            os: ubuntu-latest
+            target: linux-x64
     runs-on: ${{ matrix.os }}
 
     env:
@@ -51,8 +57,10 @@ jobs:
 
         if [ "${{ matrix.target }}" == "win-x64" ]; then
           7z a -tzip "${release_name}.zip" "./${release_name}/*"
+          echo "File_ext=.zip" >> $GITHUB_ENV
         else
           tar czvf "${release_name}.tar.gz" "$release_name"
+          echo "File_ext=.tar.gz" >> $GITHUB_ENV
         fi
         
         rm -r "$release_name"
@@ -62,6 +70,6 @@ jobs:
     - name: Publish
       uses: softprops/action-gh-release@v1
       with:
-        files: API/FIS-API/${{ env.Release_name }}.zip
+        files: API/FIS-API/${{ env.Release_name }}${{ env.File_ext }}
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
