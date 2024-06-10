@@ -1,4 +1,6 @@
 ﻿using FIS_API.Dtos;
+using FIS_API.Dtos.Inbound;
+using FIS_API.Dtos.Outbound;
 using FIS_API.Models;
 using FIS_API.Security;
 using Microsoft.AspNetCore.Authorization;
@@ -26,7 +28,7 @@ namespace FIS_API.Controllers
 
 		// POST api/<LoginController>
 		[HttpPost("[action]")]
-		public ActionResult LogIn(LoginDto loginData)
+		public ActionResult LogIn(LoginInDto loginData)
 		{
 			loginData.Username = loginData.Username.Trim();
 			loginData.Password = loginData.Password.Trim();
@@ -69,26 +71,26 @@ namespace FIS_API.Controllers
 
 		[HttpPost("[action]")]
 		[Authorize]
-		public ActionResult<FirefighterDto> FetchPersonalData(bool includeAdditionalData = false)
+		public ActionResult<FirefighterOutDto> FetchPersonalData(bool includeAdditionalData = false)
 		{
 			try
 			{
 				string email = JwtTokenProvider.ReadMailFromToken(User);
 
-				FirefighterDto result = null;
+				FirefighterOutDto result = null;
 
 				if (includeAdditionalData)
 				{
 					var userData = _context.Logins.Include(x => x.User)
 						.Include(x => x.User.Fd).ThenInclude(x => x.Cmdr).FirstOrDefault(x => x.Email == email);
 
-					result = FirefighterDto.GetDtoFromFirefighter(userData.User, true, true);
+					result = FirefighterOutDto.GetDtoFromFirefighter(userData.User, true, true);
 				}
 				else
 				{
 					var userData = _context.Logins.Include(x => x.User).ThenInclude(x => x.Rank).FirstOrDefault(x => x.Email == email);
 
-					result = FirefighterDto.GetDtoFromFirefighter(userData.User);
+					result = FirefighterOutDto.GetDtoFromFirefighter(userData.User);
 				}
 
 				return Ok(result);
@@ -109,7 +111,7 @@ namespace FIS_API.Controllers
 		{
 			try
 			{
-				return Ok(RankDto.GetAllDtosFromContext(_context));
+				return Ok(RankOutDto.GetAllDtosFromContext(_context));
 			}
 			catch (Exception ex)
 			{
@@ -119,19 +121,29 @@ namespace FIS_API.Controllers
 
 		[HttpPost("[action]")]
 		[Authorize(Roles = "Fire Fighter Commander")]
-		public ActionResult FetchCommanderFirefighters(bool includeInactive)
+		public ActionResult<CommanderFirefighterListOutDto> FetchCommanderFirefighters(bool includeActive, bool includeInactive)
 		{
 			try
 			{
+				if(!includeActive && !includeInactive)
+					return BadRequest("It is pointless.");
+
 				string email = JwtTokenProvider.ReadMailFromToken(User);
 
 				var userData = _context.Logins.Include(x => x.User).ThenInclude(x => x.FireDepartments).ThenInclude(x => x.Firefighters).FirstOrDefault(x => x.Email == email);
 
-				List<FirefighterDto> result = new();
+				CommanderFirefighterListOutDto result = new();
 
-				foreach (FireDepartment fd in userData.User.FireDepartments)
-					foreach (Firefighter ff in fd.Firefighters)
-						result.Add(FirefighterDto.GetDtoFromFirefighter(ff));
+				if (includeActive)
+					foreach (FireDepartment fd in userData.User.FireDepartments)
+						foreach (Firefighter ff in fd.Firefighters)
+							if (ff.Active)
+								result.ActiveFirefighters.Add(FirefighterOutDto.GetDtoFromFirefighter(ff));
+				if (includeInactive)
+					foreach (FireDepartment fd in userData.User.FireDepartments)
+						foreach (Firefighter ff in fd.Firefighters)
+							if (!ff.Active)
+									result.InactiveFirefighters.Add(FirefighterOutDto.GetDtoFromFirefighter(ff));
 
 				return Ok(result);
 			}
@@ -151,15 +163,15 @@ namespace FIS_API.Controllers
 
 			try
 			{
-				if (!env.IsDevelopment())
-				{
-					return BadRequest("Dev mode only, sorry");
-				}
-
 				IPAddress addr = System.Net.IPAddress.Parse(HttpContext.Connection.RemoteIpAddress.ToString());
 				if (!System.Net.IPAddress.IsLoopback(addr))
 				{
 					return BadRequest("Localhost only, sorry");
+				}
+
+				if (!env.IsDevelopment())
+				{
+					return BadRequest("Dev mode only, sorry");
 				}
 
 				password = password.Trim();
