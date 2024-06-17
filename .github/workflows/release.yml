@@ -53,7 +53,7 @@ jobs:
         echo "Release_name=$release_name" >> $GITHUB_ENV
         pwd
         ls
-        dotnet publish ${{ env.project-path }} --framework ${{ env.dotnet-framework }} --runtime "${{ matrix.target }}" -p:PublishSingleFile=true -p:PublishTrimmed=true -p:IncludeNativeLibrariesForSelfExtract=true -p:CopyOutputSymbolsToPublishDirectory=false --self-contained=true -c Release -o "$release_name"
+        dotnet publish ${{ env.project-path }} --framework ${{ env.dotnet-framework }} --runtime "${{ matrix.target }}" -p:PublishSingleFile=true -p:PublishTrimmed=true -p:IncludeNativeLibrariesForSelfExtract=true -p:CopyOutputSymbolsToPublishDirectory=false --self-contained=true -c Debug -o "$release_name"
 
         if [ "${{ matrix.target }}" == "win-x64" ]; then
           7z a -tzip "${release_name}.zip" "./${release_name}/*"
