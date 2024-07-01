@@ -18,17 +18,24 @@ namespace FIS_API
             // Add services to the container.
 
             builder.Services.AddControllers();
-            // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-			builder.Services.AddCors(options =>
+
+			var allowedOrigins = builder.Configuration.GetSection("Cors:AllowedOrigins").Get<string[]>();
+
+            if (allowedOrigins == null)
+				allowedOrigins = [];
+
+            builder.Services.AddCors(options =>
 			{
-				options.AddPolicy("AllowAll",
+				options.AddPolicy("CustomCors",
 					builder =>
 				{
-					builder.AllowAnyOrigin()
-						   .AllowAnyMethod()
-						   .AllowAnyHeader();
+					builder.WithOrigins(allowedOrigins)
+						.AllowAnyMethod()
+						.AllowAnyHeader();
 				});
 			});
+
+            // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
 			builder.Services.AddSwaggerGen(option =>
 			{
@@ -94,10 +101,12 @@ namespace FIS_API
                 app.UseSwaggerUI();
             }
 
-			// Use authentication / authorization middleware
-			app.UseCors("AllowAll");
-			app.UseAuthentication();
+            app.UseCors("CustomCors");
+
+            // Use authentication / authorization middleware
+            app.UseAuthentication();
 			app.UseAuthorization();
+
             app.MapControllers();
 
             app.Run();
